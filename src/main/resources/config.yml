@@ -1,0 +1,22 @@
+messages:
+  koth-started: "&4Le koth au co X: {kothX} Z: {kothZ}"
+  koth-finish: "&4Le koth est fini lol"
+
+reward-1: "give {faction} minecraft:diamond_sword"
+reward-2: "give {faction} minecraft:diamond_sword"
+reward-3: "give {faction} minecraft:diamond_sword"
+
+koth:
+  max-score: 60
+  1:
+    time: 5
+    location:
+      1:
+        X: 10
+        Y: 200
+        Z: 10
+      2:
+        X: -10
+        Y: 210
+        Z: -10
+      world: "world"
