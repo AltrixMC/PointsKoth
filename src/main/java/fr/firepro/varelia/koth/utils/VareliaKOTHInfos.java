@@ -2,6 +2,7 @@ package fr.firepro.varelia.koth.utils;
 
 import fr.firepro.varelia.koth.VareliaKOTH;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -11,7 +12,11 @@ public class VareliaKOTHInfos {
     File configFile = new File(VareliaKOTH.getInstance().getDataFolder(), "config.yml");
     YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
+    @Getter public static VareliaKOTHInfos instance;
+
     public VareliaKOTHInfos(String kothName) {
+        instance = this;
+
         this.kothName = kothName;
         kothCoordsWorld = config.getString("koth." + kothName + ".location.world");
 
@@ -23,24 +28,29 @@ public class VareliaKOTHInfos {
         kothCoords2Y = config.getInt("koth." + kothName + ".location.2.Y");
         kothCoords2Z = config.getInt("koth." + kothName + ".location.2.Z");
 
+
         time = config.getInt("koth." + kothName + ".time");
+
+        rewardCommand1 = config.getString("reward.1");
+        rewardCommand2 = config.getString("reward.2");
+        rewardCommand3 = config.getString("reward.3");
     }
 
-    @Getter public String kothName;
+    public String kothName;
+    public String kothCoordsWorld;
 
-    @Getter public String kothCoordsWorld;
+    public int kothCoords1X;
+    public int kothCoords1Y;
+    public int kothCoords1Z;
 
-    @Getter public Integer kothCoords1X;
-    @Getter public Integer kothCoords1Y;
-    @Getter public Integer kothCoords1Z;
+    public int kothCoords2X;
+    public int kothCoords2Y;
+    public int kothCoords2Z;
 
-    @Getter public Integer kothCoords2X;
-    @Getter public Integer kothCoords2Y;
-    @Getter public Integer kothCoords2Z;
 
-    @Getter public Integer time;
+    public Integer time;
 
-    @Getter public String rewardCommand1 = config.getString("reward.1");
-    @Getter public String rewardCommand2 = config.getString("reward.2");
-    @Getter public String rewardCommand3 = config.getString("reward.3");
+    public String rewardCommand1 = config.getString("reward.1");
+    public String rewardCommand2 = config.getString("reward.2");
+    public String rewardCommand3 = config.getString("reward.3");
 }

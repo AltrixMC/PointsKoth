@@ -1,12 +1,16 @@
 messages:
   koth-started: "&4Le koth au co X: {kothX} Z: {kothZ}"
   koth-finish: "&4Le koth est fini lol"
+  death-message: "&4{player} est mort lol et a perdu {points} points"
 
 reward-1: "give {faction} minecraft:diamond_sword"
 reward-2: "give {faction} minecraft:diamond_sword"
 reward-3: "give {faction} minecraft:diamond_sword"
+reward-4: "give {faction} minecraft:diamond_sword"
+reward-5: "give {faction} minecraft:diamond_sword"
 
 koth:
+  death-multiplier: 0.85
   max-score: 60
   1:
     time: 5

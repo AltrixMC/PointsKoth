@@ -25,13 +25,14 @@ public class VareliaKOTHScheduler {
 
     public void startGame(String name) {
         VareliaKOTHInfos vareliaKOTHInfos = new VareliaKOTHInfos(name);
-        Location area1 = new Location(Bukkit.getWorld(vareliaKOTHInfos.getKothCoordsWorld()), vareliaKOTHInfos.getKothCoords1X(), vareliaKOTHInfos.getKothCoords1Y(), vareliaKOTHInfos.getKothCoords1Z());
-        Location area2 = new Location(Bukkit.getWorld(vareliaKOTHInfos.getKothCoordsWorld()), vareliaKOTHInfos.getKothCoords2X(), vareliaKOTHInfos.getKothCoords2Y(), vareliaKOTHInfos.getKothCoords2Z());
+        Location area1 = new Location(Bukkit.getWorld(vareliaKOTHInfos.kothCoordsWorld), vareliaKOTHInfos.kothCoords1X, vareliaKOTHInfos.kothCoords1Y, vareliaKOTHInfos.kothCoords1Z);
+        Location area2 = new Location(Bukkit.getWorld(vareliaKOTHInfos.kothCoordsWorld), vareliaKOTHInfos.kothCoords2X, vareliaKOTHInfos.kothCoords2Y, vareliaKOTHInfos.kothCoords2Z);
         Location min = getMinimum(area1, area2);Location max = getMaximum(area1, area2);
-        finishScheduler(vareliaKOTHInfos.getTime(), name);
+        finishScheduler(vareliaKOTHInfos.time, name);
         update(name);
-        for (int i = 1; i < 6; i++) { registerPlaceholder(name, i, vareliaKOTHInfos.getKothCoords1X(), vareliaKOTHInfos.getKothCoords2Z());}
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', VareliaKOTH.getInstance().getConfig().getString("messages.koth-started").replace("{kothX}", String.valueOf(vareliaKOTHInfos.getKothCoords1X())).replace("{kothZ}", String.valueOf(vareliaKOTHInfos.getKothCoords1Z()))));
+        for (int i = 1; i < 6; i++) { registerPlaceholder(name, i);}
+        registerOthersPlaceholders(name, vareliaKOTHInfos.kothCoords2X, vareliaKOTHInfos.kothCoords2Z);
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', VareliaKOTH.getInstance().getConfig().getString("messages.koth-started").replace("{kothX}", String.valueOf(vareliaKOTHInfos.kothCoords1X)).replace("{kothZ}", String.valueOf(vareliaKOTHInfos.kothCoords1Z))));
 
         new BukkitRunnable() {
             @Override
@@ -47,20 +48,20 @@ public class VareliaKOTHScheduler {
                                 Faction faction = fPlayer.getFaction();
                                 if (faction != Factions.getInstance().getWilderness()) {
                                     if (factionsPoints.containsKey(faction)) {
-                                        factionsPoints.put(faction, factionsPoints.get(faction) + 1);
+                                        VareliaKOTH.getInstance().addFactionPoints(faction, factionsPoints.get(faction) + 1);
                                     } else {
-                                        factionsPoints.put(faction, 1);
+                                        VareliaKOTH.getInstance().addFactionPoints(faction, 1);
                                     }
                                 }
                             }
                             list.add(p);
                         } else list.remove(p);
                     }
-                    VareliaKOTH.getInstance().setFactionsPoints(factionsPoints);
                 } else {
+                    String message = ChatColor.translateAlternateColorCodes('&', VareliaKOTH.getInstance().getConfig().getString("messages.koth-finish"));
+                    for (Player p : Bukkit.getOnlinePlayers()) { p.sendMessage(PlaceholderAPI.replacePlaceholders(p, message)); FeatherBoardAPI.resetDefaultScoreboard(p);}
                     VareliaKOTH.getInstance().setFactionsPoints(new HashMap<>());
                     VareliaKOTH.getInstance().setPlaceholder(new HashMap<>());
-                    for (Player p : Bukkit.getOnlinePlayers()) FeatherBoardAPI.showScoreboard(p, "default");
                     cancel();
                 }
             }
@@ -98,14 +99,9 @@ public class VareliaKOTHScheduler {
 
                                 placeholder.put(i, faction.getTag() + ":" + score);
                                 if (score >= VareliaKOTH.getInstance().getConfig().getInt("koth.max-score")) {
-                                    if (VareliaKOTH.getInstance().getStarted().get(name)) {
+                                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), VareliaKOTH.getInstance().getConfig().getString("reward-" + i).replace("{faction}", faction.getTag()));
+                                    if (VareliaKOTH.getInstance().getStarted().containsKey(name)) {
                                         stopKoth(name);
-
-                                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), VareliaKOTH.getInstance().getConfig().getString("reward-1").replace("{faction}", faction.getTag()));
-                                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), VareliaKOTH.getInstance().getConfig().getString("reward-2").replace("{faction}", faction.getTag()));
-                                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), VareliaKOTH.getInstance().getConfig().getString("reward-3").replace("{faction}", faction.getTag()));
-
-                                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', VareliaKOTH.getInstance().getConfig().getString("messages.koth-finish")));
                                     }
                                 }
                             } catch (Exception ignored) {}
@@ -114,7 +110,7 @@ public class VareliaKOTHScheduler {
                     }
                 }
             }
-        }.runTaskTimerAsynchronously(VareliaKOTH.getInstance(), 0, 20 * 5);
+        }.runTaskTimer(VareliaKOTH.getInstance(), 0, 20);
     }
 
     public Boolean isInArea(Player player, Location min, Location max) {
@@ -127,16 +123,14 @@ public class VareliaKOTHScheduler {
         return false;
     }
 
-    public void registerPlaceholder(String name, Integer number, Integer x, Integer z) {
+    public void registerPlaceholder(String name, Integer number) {
         PlaceholderAPI.registerPlaceholder(VareliaKOTH.getInstance(), "koth" + number + "_points", new PlaceholderReplacer() {
             @Override
             public String onPlaceholderReplace(PlaceholderReplaceEvent placeholderReplaceEvent) {
                 HashMap<String, Boolean> started = VareliaKOTH.getInstance().getStarted();
                 HashMap<Integer, String> placeholder = VareliaKOTH.getInstance().getPlaceholder();
-                if (started.get(name)) {
-                    if (placeholder.get(number) != null) {
-                        return placeholder.get(number).split(":")[1];
-                    }
+                if (placeholder.get(number) != null) {
+                    return placeholder.get(number).split(":")[1];
                 }
                 return "Aucun";
             }
@@ -146,15 +140,15 @@ public class VareliaKOTHScheduler {
             public String onPlaceholderReplace(PlaceholderReplaceEvent placeholderReplaceEvent) {
                 HashMap<String, Boolean> started = VareliaKOTH.getInstance().getStarted();
                 HashMap<Integer, String> placeholder = VareliaKOTH.getInstance().getPlaceholder();
-                if (started.get(name)) {
-                    if (placeholder.get(number) != null) {
-                        return placeholder.get(number).split(":")[0];
-                    }
+                if (placeholder.get(number) != null) {
+                    return placeholder.get(number).split(":")[0];
                 }
                 return "Aucun";
             }
         });
+    }
 
+    public void registerOthersPlaceholders(String name, Integer x, Integer z) {
         PlaceholderAPI.registerPlaceholder(VareliaKOTH.getInstance(), "kothX", new PlaceholderReplacer() {
             @Override
             public String onPlaceholderReplace(PlaceholderReplaceEvent placeholderReplaceEvent) {
@@ -176,6 +170,21 @@ public class VareliaKOTHScheduler {
                 return "Aucun";
             }
         });
+
+        PlaceholderAPI.registerPlaceholder(VareliaKOTH.getInstance(), "kothmy_points", new PlaceholderReplacer() {
+            @Override
+            public String onPlaceholderReplace(PlaceholderReplaceEvent placeholderReplaceEvent) {
+                HashMap<String, Boolean> started = VareliaKOTH.getInstance().getStarted();
+                if (started.get(name)) {
+                    FPlayer fPlayer = FPlayers.getInstance().getByPlayer(placeholderReplaceEvent.getPlayer());
+                    Faction faction = fPlayer.getFaction();
+                    if (!faction.isWilderness() && VareliaKOTH.getInstance().getFactionsPoints().containsKey(faction)) {
+                        return String.valueOf(VareliaKOTH.getInstance().getFactionsPoints().get(faction));
+                    }
+                }
+                return "0";
+            }
+        });
     }
 
 
@@ -189,6 +198,7 @@ public class VareliaKOTHScheduler {
     }
 
     public void startKoth(String name) {
+        System.out.println(name);
         HashMap<String, Boolean> started = VareliaKOTH.getInstance().getStarted();
         started.put(name, true);
         VareliaKOTH.getInstance().setStarted(started);

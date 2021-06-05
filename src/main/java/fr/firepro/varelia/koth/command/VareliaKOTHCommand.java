@@ -17,11 +17,12 @@ public class VareliaKOTHCommand implements CommandExecutor {
         if (args.length >= 2) {
             VareliaKOTHScheduler vareliaKOTHScheduler = new VareliaKOTHScheduler();
             if (args[0].equalsIgnoreCase("start")) {
-                vareliaKOTHScheduler.startKoth(args[1]);
+                System.out.println(args[1]);
                 sender.sendMessage("Vous venez de lancer le koth " + args[1]);
+                vareliaKOTHScheduler.startKoth(args[1]);
             } else if (args[0].equalsIgnoreCase("stop")) {
-                vareliaKOTHScheduler.stopKoth(args[1]);
                 sender.sendMessage("Vous venez de stop le koth " + args[1]);
+                vareliaKOTHScheduler.stopKoth(args[1]);
             }
         } else if (args[0].equalsIgnoreCase("status")) {
             sender.sendMessage("KOTH en cours : " + VareliaKOTH.getInstance().getStarted().keySet());

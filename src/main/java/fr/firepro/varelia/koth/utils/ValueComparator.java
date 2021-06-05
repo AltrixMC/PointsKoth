@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class ValueComparator implements Comparator<Faction> {
 
-    Map<Faction, Integer> base;
+    private final Map<Faction, Integer> base;
     public ValueComparator(HashMap<Faction, Integer> map) {
         this.base = map;
     }

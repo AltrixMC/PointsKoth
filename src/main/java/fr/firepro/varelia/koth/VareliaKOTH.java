@@ -2,6 +2,7 @@ package fr.firepro.varelia.koth;
 
 import com.massivecraft.factions.Faction;
 import fr.firepro.varelia.koth.command.VareliaKOTHCommand;
+import fr.firepro.varelia.koth.listener.VareliaKOTHListener;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,6 +22,7 @@ public final class VareliaKOTH extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
         getCommand("koth").setExecutor(new VareliaKOTHCommand());
+        getServer().getPluginManager().registerEvents(new VareliaKOTHListener(), this);
     }
 
     @Override
@@ -30,5 +32,9 @@ public final class VareliaKOTH extends JavaPlugin {
 
     public static VareliaKOTH getInstance() {
         return instance;
+    }
+
+    public void addFactionPoints(Faction key, Integer value) {
+        factionsPoints.put(key, value);
     }
 }
