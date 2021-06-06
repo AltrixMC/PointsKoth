@@ -1,8 +1,8 @@
-package fr.firepro.varelia.koth;
+package fr.altrix.varelia.koth;
 
 import com.massivecraft.factions.Faction;
-import fr.firepro.varelia.koth.command.VareliaKOTHCommand;
-import fr.firepro.varelia.koth.listener.VareliaKOTHListener;
+import fr.altrix.varelia.koth.command.VareliaKOTHCommand;
+import fr.altrix.varelia.koth.listener.VareliaKOTHListener;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.plugin.java.JavaPlugin;

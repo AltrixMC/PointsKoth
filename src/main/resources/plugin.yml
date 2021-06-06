@@ -1,6 +1,6 @@
 name: VareliaKOTH
 version: ${project.version}
-main: fr.firepro.varelia.koth.VareliaKOTH
+main: fr.altrix.varelia.koth.VareliaKOTH
 authors: [ FireProMC ]
 depend:
   - MVdWPlaceholderAPI

@@ -1,4 +1,4 @@
-package fr.firepro.varelia.koth.utils;
+package fr.altrix.varelia.koth.utils;
 
 import com.massivecraft.factions.Faction;
 

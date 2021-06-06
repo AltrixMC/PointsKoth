@@ -1,8 +1,6 @@
-package fr.firepro.varelia.koth.utils;
+package fr.altrix.varelia.koth.utils;
 
-import fr.firepro.varelia.koth.VareliaKOTH;
-import lombok.Getter;
-import lombok.Setter;
+import fr.altrix.varelia.koth.VareliaKOTH;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -12,11 +10,7 @@ public class VareliaKOTHInfos {
     File configFile = new File(VareliaKOTH.getInstance().getDataFolder(), "config.yml");
     YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
-    @Getter public static VareliaKOTHInfos instance;
-
     public VareliaKOTHInfos(String kothName) {
-        instance = this;
-
         this.kothName = kothName;
         kothCoordsWorld = config.getString("koth." + kothName + ".location.world");
 

@@ -1,14 +1,10 @@
-package fr.firepro.varelia.koth.command;
+package fr.altrix.varelia.koth.command;
 
-import be.maximvdw.placeholderapi.PlaceholderAPI;
-import fr.firepro.varelia.koth.VareliaKOTH;
-import fr.firepro.varelia.koth.scheduler.VareliaKOTHScheduler;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import fr.altrix.varelia.koth.VareliaKOTH;
+import fr.altrix.varelia.koth.scheduler.VareliaKOTHScheduler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class VareliaKOTHCommand implements CommandExecutor {
     @Override

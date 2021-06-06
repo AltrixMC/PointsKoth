@@ -1,9 +1,9 @@
-package fr.firepro.varelia.koth.listener;
+package fr.altrix.varelia.koth.listener;
 
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
-import fr.firepro.varelia.koth.VareliaKOTH;
+import fr.altrix.varelia.koth.VareliaKOTH;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -20,7 +20,7 @@ public class VareliaKOTHListener implements Listener {
             Faction faction = fPlayer.getFaction();
             if (!faction.isWilderness() && VareliaKOTH.getInstance().getFactionsPoints().containsKey(faction)) {
                 int totalPoints = (int) (VareliaKOTH.getInstance().getFactionsPoints().get(faction) * VareliaKOTH.getInstance().getConfig().getDouble("koth.death-multiplier"));
-                int point = (int) VareliaKOTH.getInstance().getFactionsPoints().get(faction);
+                int point = VareliaKOTH.getInstance().getFactionsPoints().get(faction);
                 VareliaKOTH.getInstance().addFactionPoints(faction, totalPoints);
                 point = point - VareliaKOTH.getInstance().getFactionsPoints().get(faction);
                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',VareliaKOTH.getInstance().getConfig().getString("messages.death-message").replace("{points}", String.valueOf(point)).replace("{player}", event.getEntity().getName())));
