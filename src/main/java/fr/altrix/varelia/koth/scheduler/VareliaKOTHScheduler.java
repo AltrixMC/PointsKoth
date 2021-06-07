@@ -151,6 +151,20 @@ public class VareliaKOTHScheduler {
                 return "Aucun";
             }
         });
+        PlaceholderAPI.registerPlaceholder(VareliaKOTH.getInstance(), "kothmy_points", new PlaceholderReplacer() {
+            @Override
+            public String onPlaceholderReplace(PlaceholderReplaceEvent placeholderReplaceEvent) {
+                HashMap<String, Boolean> started = VareliaKOTH.getInstance().getStarted();
+                if (started.get(name)) {
+                    FPlayer fPlayer = FPlayers.getInstance().getByPlayer(placeholderReplaceEvent.getPlayer());
+                    Faction faction = fPlayer.getFaction();
+                    if (!faction.isWilderness() && VareliaKOTH.getInstance().getFactionsPoints().containsKey(faction)) {
+                        return String.valueOf(VareliaKOTH.getInstance().getFactionsPoints().get(faction));
+                    }
+                }
+                return "0";
+            }
+        });
     }
 
     public void registerOthersPlaceholders(String name, Integer x, Integer z) {
@@ -173,21 +187,6 @@ public class VareliaKOTHScheduler {
                     return String.valueOf(z);
                 }
                 return "Aucun";
-            }
-        });
-
-        PlaceholderAPI.registerPlaceholder(VareliaKOTH.getInstance(), "kothmy_points", new PlaceholderReplacer() {
-            @Override
-            public String onPlaceholderReplace(PlaceholderReplaceEvent placeholderReplaceEvent) {
-                HashMap<String, Boolean> started = VareliaKOTH.getInstance().getStarted();
-                if (started.get(name)) {
-                    FPlayer fPlayer = FPlayers.getInstance().getByPlayer(placeholderReplaceEvent.getPlayer());
-                    Faction faction = fPlayer.getFaction();
-                    if (!faction.isWilderness() && VareliaKOTH.getInstance().getFactionsPoints().containsKey(faction)) {
-                        return String.valueOf(VareliaKOTH.getInstance().getFactionsPoints().get(faction));
-                    }
-                }
-                return "0";
             }
         });
     }
