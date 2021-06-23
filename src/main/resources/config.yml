@@ -1,27 +1,53 @@
-messages:
-  koth-started: "&4Le koth au co X: {kothX} Z: {kothZ}"
-  koth-finish: "&4Le koth est fini lol"
-  death-message: "&4{player} est mort lol et a perdu {points} points"
+####################################################
+#                                                  #
+#                  Placeholders :                  #
+#                 {kothX} : get X                  #
+#                 {kothZ} : get Z                  #
+#                                                  #
+#        {koth1_faction} : get first faction       #
+#     {koth1_points} : get first faction points    #
+#               The same for 2,3,4,5               #
+#                                                  #
+####################################################
 
-reward-1: "give {faction} minecraft:diamond_sword"
-reward-2: "give {faction} minecraft:diamond_sword"
-reward-3: "give {faction} minecraft:diamond_sword"
-reward-4: "give {faction} minecraft:diamond_sword"
-reward-5: "give {faction} minecraft:diamond_sword"
+
+messages:
+  koth-started: "&6&lExampleServer &f&l» &7Le KOTH &6{kothName} &7vient de démarrer (X: &6{kothX} &7Z: &6{kothZ}&7)"
+  koth-finish: "&6&lExampleServer &f&l»  &7Le KOTH &6{kothName} &7vient d'être emporté par la faction &6{koth1_faction} &7!"
+  death-message: "&6&lExampleServer &f&l» &6{player} &7est mort et fait perdre &6&l{points} points &7à sa faction."
+
+
+reward-1: "ranks give {faction} 75"
+reward-2: "ranks give {faction} 50"
+reward-3: "ranks give {faction} 30"
+reward-4: "ranks give {faction} 20"
+reward-5: "ranks give {faction} 10"
 
 death-multiplier: 0.85
 max-score: 60
 
 koth:
-  1:
-    name: "&4Village"
-    time: 300
+  village:
+    name: "Village"
+    time: 60
     world: "world"
     first:
-      X: 10
-      Y: 200
-      Z: 10
+      X: -135
+      Y: 69
+      Z: -255
     second:
-      X: -10
-      Y: 210
-      Z: -10
+      X: -141
+      Y: 73
+      Z: -249
+  village2:
+    name: "Village2"
+    time: 60
+    world: "world"
+    first:
+      X: -135
+      Y: 69
+      Z: -255
+    second:
+      X: -141
+      Y: 73
+      Z: -249

@@ -1,7 +1,6 @@
 package fr.altrix.koth.runnable;
 
 import be.maximvdw.featherboard.api.FeatherBoardAPI;
-import be.maximvdw.placeholderapi.PlaceholderAPI;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
@@ -11,23 +10,33 @@ import fr.altrix.koth.entity.Koth;
 import fr.altrix.koth.utils.ValueComparator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class KothRunnable {
 
     public void startRunnable(Koth koth1) {
         KothPlugin.getInstance().actualKoth = koth1;
+
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
+                KothPlugin.getInstance().getConfig().getString("messages.koth-started")
+                .replace("{kothX}", String.valueOf(koth1.getMiddle().getBlockX()))
+                .replace("{kothZ}", String.valueOf(koth1.getMiddle().getBlockZ()))
+                .replace("{kothName}", koth1.getName())));
+
         new BukkitRunnable() {
             Koth koth = KothPlugin.getInstance().actualKoth;
             int time = 0;
             @Override
             public void run() {
                 if (time >= koth.getTime()) koth.setStarted(false);
-                if (koth.getPoints() != null && koth.getPoints().get(0) >= KothPlugin.getInstance().getConfig().getInt("max-score"))
+                if (koth.getPoints().size() > 0 && koth.getPoints().get(koth.getTop().get(0)) >= KothPlugin.getInstance().getConfig().getInt("max-score")) koth.setStarted(false);
+
                 if (koth.getStarted()) {
                     koth = KothPlugin.getInstance().actualKoth;
                     for (Player p : Bukkit.getOnlinePlayers()) {

@@ -16,11 +16,11 @@ public class StartArgs extends Argument {
 
     @Override
     public String execute(Player player, List<String> parameters) {
-        if (KothPlugin.getInstance().getKothById(parameters.get(0)) == null)  return "§6VareliaKOTH » §7Le koth §6" + parameters.get(0) + " §7n'as pas été trouvé";
+        if (KothPlugin.getInstance().getKothById(parameters.get(0)) == null)  return "§6PointsKoth » §7Le koth §6" + parameters.get(0) + " §7n'as pas été trouvé";
 
         Koth koth = KothPlugin.getInstance().getKothById(parameters.get(0));
         KothPlugin.getInstance().startGame(koth);
-        return "§6VareliaKOTH » §7Le koth §6" + parameters.get(0) + " §7a bien été lancé";
+        return "§6PointsKoth » §7Le koth §6" + parameters.get(0) + " §7a bien été lancé";
     }
 
     @Override
