@@ -8,6 +8,7 @@ import fr.altrix.koth.utils.ValueComparator;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
@@ -166,14 +167,24 @@ public class Koth {
 
     public void finish() {
         String message = ChatColor.translateAlternateColorCodes('&', KothPlugin.getInstance().getConfig().getString("messages.koth-finish").replace("{kothName}", name));
-        for (Player p : Bukkit.getOnlinePlayers()) { p.sendMessage(PlaceholderAPI.replacePlaceholders(p, message)); FeatherBoardAPI.resetDefaultScoreboard(p);}
-        for (int i = 1; i < 6; i++) {
-            if (top.get(i) != null) {
-                Faction faction = top.get(i);
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            p.sendMessage(PlaceholderAPI.replacePlaceholders(p, message));
+            FeatherBoardAPI.resetDefaultScoreboard(p);
+        }
+        if (!Bukkit.isPrimaryThread()) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    for (int i = 1; i < 6; i++) {
+                        if (top.size() >= i) {
+                            Faction faction = top.get(i - 1);
 
-                String command = KothPlugin.getInstance().getConfig().getString("reward-" + i).replace("{faction}", faction.getTag());
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-            }
+                            String command = KothPlugin.getInstance().getConfig().getString("reward-" + i).replace("{faction}", faction.getTag());
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+                        }
+                    }
+                }
+            }.runTask(KothPlugin.getInstance());
         }
         clearAll();
     }

@@ -9,6 +9,7 @@ import fr.altrix.koth.utils.Placeholders;
 import fr.better.command.CommandsBuilder;
 import fr.better.command.complex.Command;
 import fr.better.command.complex.content.ArgumentType;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -40,6 +41,7 @@ public final class KothPlugin extends JavaPlugin {
             Koth koth = new Koth(getConfig().getConfigurationSection("koth." + s), s);
             koths.add(koth);
         }
+        Metrics metrics = new Metrics(this, 11805);
     }
 
     public static KothPlugin getInstance() {
