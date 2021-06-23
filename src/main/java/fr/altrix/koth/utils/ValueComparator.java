@@ -1,4 +1,4 @@
-package fr.altrix.varelia.koth.utils;
+package fr.altrix.koth.utils;
 
 import com.massivecraft.factions.Faction;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 public class ValueComparator implements Comparator<Faction> {
 
     private final Map<Faction, Integer> base;
-    public ValueComparator(HashMap<Faction, Integer> map) {
+    public ValueComparator(Map<Faction, Integer> map) {
         this.base = map;
     }
 
