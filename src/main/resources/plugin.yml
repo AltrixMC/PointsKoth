@@ -5,7 +5,7 @@ authors: [ AltrixMC ]
 depend:
   - MVdWPlaceholderAPI
   - FeatherBoard
-  - FactionsUUID
+  - Factions
 commands:
   koth:
     permission: koth.command
