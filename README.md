@@ -8,3 +8,5 @@ Dependencies :
 - FeatherBoard
 - MVdWPlaceholderAPI
 - FactionsUUID
+
+To connect the plugin to FeatherBoard you must create a new scoreboard named koth, then you can add the placeholders
