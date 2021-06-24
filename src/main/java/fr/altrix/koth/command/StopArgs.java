@@ -10,16 +10,17 @@ import java.util.List;
 public class StopArgs extends Argument {
     @Override
     public String utility() {
-        return "permet d'arreter un koth";
+        return "allows to stop a koth";
     }
 
     @Override
     public String execute(Player player, List<String> parameters) {
         KothManager kothManager = new KothManager();
-        if (kothManager.getKothById(parameters.get(0)) == null)  return "§6PointsKoth » §7Le koth §6" + parameters.get(0) + " §7n'as pas été trouvé";
+        if (kothManager.getKothById(parameters.get(0)) == null)
+            return "§6PointsKoth » §7The koth §6" + parameters.get(0) + " §7was not found";
 
         kothManager.stopGame(kothManager.getKothById(parameters.get(0)));
-        return "§6PointsKoth » §7Le koth §6" + parameters.get(0) + " §7a bien été stopper";
+        return "§6PointsKoth » §7The koth §6" + parameters.get(0) + " §7has been stopped";
     }
 
     @Override

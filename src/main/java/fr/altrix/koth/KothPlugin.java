@@ -1,6 +1,7 @@
 package fr.altrix.koth;
 
 import fr.altrix.koth.command.StartArgs;
+import fr.altrix.koth.command.StatusArgs;
 import fr.altrix.koth.command.StopArgs;
 import fr.altrix.koth.area.Koth;
 import fr.altrix.koth.listener.KothListener;
@@ -31,6 +32,7 @@ public final class KothPlugin extends JavaPlugin {
         Command command = builder.createComplexCommand("koth");
         command.add("start", new StartArgs(), ArgumentType.DONT_NEED_PLAYER);
         command.add("stop", new StopArgs(), ArgumentType.DONT_NEED_PLAYER);
+        command.add("status", new StatusArgs(), ArgumentType.DONT_NEED_PLAYER);
 
         koths = new ArrayList<>();
         for (String s : getConfig().getConfigurationSection("koth").getKeys(false)) {

@@ -1,0 +1,11 @@
+name: PointsKoth
+version: ${project.version}
+main: fr.altrix.koth.KothPlugin
+authors: [ AltrixMC ]
+depend:
+  - MVdWPlaceholderAPI
+  - FeatherBoard
+  - Factions
+commands:
+  koth:
+    permission: koth.command

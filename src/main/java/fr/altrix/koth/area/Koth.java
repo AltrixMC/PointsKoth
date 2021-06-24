@@ -182,6 +182,7 @@ public class Koth {
             }.runTask(KothPlugin.getInstance());
         else rewards();
         clearAll();
+        KothPlugin.getInstance().actualKoth = null;
     }
 
     private void rewards() {
