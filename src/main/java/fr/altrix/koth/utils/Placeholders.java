@@ -4,12 +4,11 @@ import be.maximvdw.placeholderapi.PlaceholderAPI;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
-import com.massivecraft.factions.Factions;
 import fr.altrix.koth.KothPlugin;
-import fr.altrix.koth.entity.Koth;
-import fr.altrix.koth.runnable.KothRunnable;
+import fr.altrix.koth.areas.Koth;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public class Placeholders {
     public void registerPlaceholders(Koth koth) {

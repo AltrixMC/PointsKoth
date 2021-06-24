@@ -4,14 +4,12 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import fr.altrix.koth.KothPlugin;
-import fr.altrix.koth.entity.Koth;
-import fr.altrix.koth.runnable.KothRunnable;
+import fr.altrix.koth.areas.Koth;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class KothListener implements org.bukkit.event.Listener {
 

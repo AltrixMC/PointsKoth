@@ -2,7 +2,7 @@ package fr.altrix.koth;
 
 import fr.altrix.koth.command.StartArgs;
 import fr.altrix.koth.command.StopArgs;
-import fr.altrix.koth.entity.Koth;
+import fr.altrix.koth.areas.Koth;
 import fr.altrix.koth.listener.KothListener;
 import fr.altrix.koth.runnable.KothRunnable;
 import fr.altrix.koth.utils.Placeholders;
@@ -10,8 +10,6 @@ import fr.better.command.CommandsBuilder;
 import fr.better.command.complex.Command;
 import fr.better.command.complex.content.ArgumentType;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -47,30 +45,4 @@ public final class KothPlugin extends JavaPlugin {
     public static KothPlugin getInstance() {
         return instance;
     }
-
-    public Koth getKothById(String id) {
-        for (Koth koth : this.koths) {
-            if (koth.getId().equalsIgnoreCase(id))
-                return koth;
-        }
-        return null;
-    }
-
-    public void startGame(Koth koth) {
-        koth.setStarted(true);
-        setupKoth(koth);
-        KothRunnable kothRunnable = new KothRunnable();
-        kothRunnable.startRunnable(koth);
-    }
-    public void setupKoth(Koth koth) {
-        Placeholders placeholders = new Placeholders();
-
-        placeholders.registerPlaceholders(koth);
-        placeholders.registerOthersPlaceholders(koth);
-    }
-
-    public void stopGame(Koth koth) {
-        koth.setStarted(false);
-    }
-
 }

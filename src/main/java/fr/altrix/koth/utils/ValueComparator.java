@@ -3,7 +3,6 @@ package fr.altrix.koth.utils;
 import com.massivecraft.factions.Faction;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ValueComparator implements Comparator<Faction> {
