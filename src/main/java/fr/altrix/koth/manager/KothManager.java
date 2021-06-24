@@ -1,7 +1,7 @@
 package fr.altrix.koth.manager;
 
 import fr.altrix.koth.KothPlugin;
-import fr.altrix.koth.areas.Koth;
+import fr.altrix.koth.area.Koth;
 import fr.altrix.koth.runnable.KothRunnable;
 import fr.altrix.koth.utils.Placeholders;
 

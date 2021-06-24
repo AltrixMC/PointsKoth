@@ -1,4 +1,4 @@
-package fr.altrix.koth.areas;
+package fr.altrix.koth.area;
 
 import be.maximvdw.featherboard.api.FeatherBoardAPI;
 import be.maximvdw.placeholderapi.PlaceholderAPI;

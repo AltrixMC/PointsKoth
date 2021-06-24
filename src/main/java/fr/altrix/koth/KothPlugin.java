@@ -2,10 +2,8 @@ package fr.altrix.koth;
 
 import fr.altrix.koth.command.StartArgs;
 import fr.altrix.koth.command.StopArgs;
-import fr.altrix.koth.areas.Koth;
+import fr.altrix.koth.area.Koth;
 import fr.altrix.koth.listener.KothListener;
-import fr.altrix.koth.runnable.KothRunnable;
-import fr.altrix.koth.utils.Placeholders;
 import fr.better.command.CommandsBuilder;
 import fr.better.command.complex.Command;
 import fr.better.command.complex.content.ArgumentType;

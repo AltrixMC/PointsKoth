@@ -4,7 +4,7 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import fr.altrix.koth.KothPlugin;
-import fr.altrix.koth.areas.Koth;
+import fr.altrix.koth.area.Koth;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
