@@ -52,6 +52,13 @@ public class Placeholders {
                 return String.valueOf(koth.getMiddle().getBlockZ());
             return "Aucun";
         });
+
+        PlaceholderAPI.registerPlaceholder(KothPlugin.getInstance(), "kothTime", placeholderReplaceEvent -> {
+            int restTime = koth.getMaxTime() - koth.getTime();
+            if (koth.getStarted())
+                return String.valueOf(restTime);
+            return "Aucun";
+        });
     }
 
 }

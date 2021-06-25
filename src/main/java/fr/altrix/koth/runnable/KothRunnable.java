@@ -34,7 +34,7 @@ public class KothRunnable {
             int time = 0;
             @Override
             public void run() {
-                if (time >= koth.getTime()) koth.setStarted(false);
+                if (koth.getTime() >= koth.getMaxTime()) koth.setStarted(false);
                 if (koth.getPoints().size() > 0 && koth.getPoints().get(koth.getTop().get(0)) >= KothPlugin.getInstance().getConfig().getInt("max-score")) koth.setStarted(false);
 
                 if (koth.getStarted()) {
@@ -52,6 +52,7 @@ public class KothRunnable {
                     }
                     calculateTop(koth);
                     time++;
+                    koth.setTime(time);
                 } else { koth.finish(); cancel();}
             }
         }.runTaskTimerAsynchronously(KothPlugin.getInstance(), 0, 20);

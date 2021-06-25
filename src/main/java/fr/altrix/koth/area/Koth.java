@@ -22,6 +22,7 @@ public class Koth {
 
     private String id;
     private String name;
+    private int maxTime;
     private int time;
     private Location min, max;
     private Location middle;
@@ -29,9 +30,10 @@ public class Koth {
     private Map<Faction, Integer> points;
     private List<Faction> top;
 
-    public Koth(String id, String name, int time, Location min, Location max, Location middle, boolean started, Map<Faction, Integer> points, List<Faction> top) {
+    public Koth(String id, String name, int maxTime, int time, Location min, Location max, Location middle, boolean started, Map<Faction, Integer> points, List<Faction> top) {
         this.id = id;
         this.name = name;
+        this.maxTime = maxTime;
         this.time = time;
         this.min = min;
         this.max = max;
@@ -44,7 +46,8 @@ public class Koth {
     public Koth(ConfigurationSection section, String id) {
         this.id = id;
         this.name = section.getString("name");
-        this.time = section.getInt("time");
+        this.maxTime = section.getInt("time");
+        this.time = 0;
         this.started = false;
 
         World world = Bukkit.getWorld(section.getString("world"));
@@ -76,6 +79,14 @@ public class Koth {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getMaxTime() {
+        return maxTime;
+    }
+
+    public void setMaxTime(int maxTime) {
+        this.maxTime = maxTime;
     }
 
     public int getTime() {

@@ -23,7 +23,11 @@ public class KothListener implements org.bukkit.event.Listener {
             int point = koth.getPoints().get(faction);
             koth.getPoints().put(faction, totalPoints);
             point = point - koth.getPoints().get(faction);
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', KothPlugin.getInstance().getConfig().getString("messages.death-message").replace("{points}", String.valueOf(point)).replace("{player}", event.getEntity().getName())));
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
+                    KothPlugin.getInstance().getConfig().getString("messages.death-message")
+                            .replace("{points}", String.valueOf(point))
+                            .replace("{player}", event.getEntity().getName())
+                            .replace("{faction}", faction.getTag())));
         }
     }
 
