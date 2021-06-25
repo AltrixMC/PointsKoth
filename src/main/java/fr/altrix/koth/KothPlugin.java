@@ -1,5 +1,6 @@
 package fr.altrix.koth;
 
+import fr.altrix.koth.command.ReloadArgs;
 import fr.altrix.koth.command.StartArgs;
 import fr.altrix.koth.command.StatusArgs;
 import fr.altrix.koth.command.StopArgs;
@@ -13,10 +14,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public final class KothPlugin extends JavaPlugin {
 
     public static KothPlugin instance;
+
+    public Logger log = Logger.getLogger("Minecraft");
 
     public List<Koth> koths;
     public Koth actualKoth;
@@ -33,13 +37,18 @@ public final class KothPlugin extends JavaPlugin {
         command.add("start", new StartArgs(), ArgumentType.DONT_NEED_PLAYER);
         command.add("stop", new StopArgs(), ArgumentType.DONT_NEED_PLAYER);
         command.add("status", new StatusArgs(), ArgumentType.DONT_NEED_PLAYER);
+        command.add("reload", new ReloadArgs(), ArgumentType.DONT_NEED_PLAYER);
 
+        loadKoths();
+        Metrics metrics = new Metrics(this, 11805);
+    }
+
+    public void loadKoths() {
         koths = new ArrayList<>();
         for (String s : getConfig().getConfigurationSection("koth").getKeys(false)) {
             Koth koth = new Koth(getConfig().getConfigurationSection("koth." + s), s);
             koths.add(koth);
         }
-        Metrics metrics = new Metrics(this, 11805);
     }
 
     public static KothPlugin getInstance() {

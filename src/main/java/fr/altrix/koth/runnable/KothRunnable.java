@@ -52,7 +52,7 @@ public class KothRunnable {
                     }
                     calculateTop(koth);
                     time++;
-                } else { koth.finish();cancel(); }
+                } else { koth.finish(); cancel();}
             }
         }.runTaskTimerAsynchronously(KothPlugin.getInstance(), 0, 20);
     }

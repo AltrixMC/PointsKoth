@@ -3,6 +3,7 @@ package fr.altrix.koth.area;
 import be.maximvdw.featherboard.api.FeatherBoardAPI;
 import be.maximvdw.placeholderapi.PlaceholderAPI;
 import com.massivecraft.factions.Faction;
+import com.mysql.jdbc.log.Log;
 import fr.altrix.koth.KothPlugin;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
@@ -13,6 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 public class Koth {
 
@@ -45,7 +49,7 @@ public class Koth {
 
         World world = Bukkit.getWorld(section.getString("world"));
         if (world == null) {
-            System.out.println("Ta mal fait la config connard !!");
+            KothPlugin.getInstance().log.info("\n\n[PointsKoth] Bad configuration\n\n");
             Bukkit.getPluginManager().disablePlugin(KothPlugin.getInstance());
         }
         Location location1 = new Location(world, section.getInt("first.X"), section.getInt("first.Y"), section.getInt("first.Z"));
@@ -162,9 +166,9 @@ public class Koth {
     }
 
     private void clearAll() {
-        this.started = false;
-        this.top = new ArrayList<>();
-        this.points = new HashMap<>();
+        started = false;
+        top = new ArrayList<>();
+        points = new HashMap<>();
     }
 
     public void finish() {
@@ -173,16 +177,15 @@ public class Koth {
             p.sendMessage(PlaceholderAPI.replacePlaceholders(p, message));
             FeatherBoardAPI.resetDefaultScoreboard(p);
         }
-        if (!Bukkit.isPrimaryThread())
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    rewards();
-                }
-            }.runTask(KothPlugin.getInstance());
-        else rewards();
-        clearAll();
-        KothPlugin.getInstance().actualKoth = null;
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                rewards();
+                clearAll();
+                KothPlugin.getInstance().actualKoth = null;
+            }
+        }.runTask(KothPlugin.getInstance());
+
     }
 
     private void rewards() {
