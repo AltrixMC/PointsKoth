@@ -1,22 +1,20 @@
 package fr.altrix.koth;
 
-import fr.altrix.koth.command.ReloadArgs;
-import fr.altrix.koth.command.StartArgs;
-import fr.altrix.koth.command.StatusArgs;
-import fr.altrix.koth.command.StopArgs;
-import fr.altrix.koth.area.Koth;
-import fr.altrix.koth.listener.KothListener;
-import fr.altrix.koth.listener.UpdateListener;
-import fr.altrix.koth.utils.UpdateChecker;
-import fr.better.command.CommandsBuilder;
-import fr.better.command.complex.Command;
-import fr.better.command.complex.content.ArgumentType;
-import org.bstats.bukkit.Metrics;
-import org.bukkit.plugin.java.JavaPlugin;
+import fr.altrix.koth.area.*;
+import fr.altrix.koth.command.*;
+import fr.altrix.koth.factions.*;
+import fr.altrix.koth.listener.*;
+import fr.altrix.koth.utils.*;
+import fr.altrix.koth.utils.bstats.*;
+import fr.better.command.*;
+import fr.better.command.complex.*;
+import fr.better.command.complex.content.*;
+import org.bukkit.*;
+import org.bukkit.plugin.*;
+import org.bukkit.plugin.java.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
+import java.util.*;
+import java.util.logging.*;
 
 public final class KothPlugin extends JavaPlugin {
 
@@ -27,6 +25,8 @@ public final class KothPlugin extends JavaPlugin {
 
     public List<Koth> koths;
     public Koth actualKoth;
+
+    public IFactions iFactions;
 
     @Override
     public void onEnable() {
@@ -45,7 +45,6 @@ public final class KothPlugin extends JavaPlugin {
 
         loadKoths();
         Metrics metrics = new Metrics(this, 11805);
-
         new UpdateChecker(this, 93590).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
                 log.info("There is not a new update available.");
@@ -55,7 +54,7 @@ public final class KothPlugin extends JavaPlugin {
                 upToDate = false;
             }
         });
-
+        setActualFaction();
     }
 
     public void loadKoths() {
@@ -68,5 +67,19 @@ public final class KothPlugin extends JavaPlugin {
 
     public static KothPlugin getInstance() {
         return instance;
+    }
+
+    private void setActualFaction() {
+        for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+            if (plugin.getName().equalsIgnoreCase("Factions")) {
+                String authors = plugin.getDescription().getAuthors().toString();
+                if (authors.contains("Driftay"))
+                    iFactions = new FactionsUUID();
+                else if (authors.contains("drtshock"))
+                    iFactions = new FactionsUUID();
+                else if (authors.contains("Cayorion") && Bukkit.getPluginManager().isPluginEnabled("MassiveCore"))
+                    iFactions = new MassiveFaction();
+            }
+        }
     }
 }

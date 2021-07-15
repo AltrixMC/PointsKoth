@@ -7,27 +7,25 @@ import fr.altrix.koth.KothPlugin;
 import fr.altrix.koth.area.Koth;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
+import org.bukkit.event.*;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-public class KothListener implements org.bukkit.event.Listener {
+public class KothListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onDead(PlayerDeathEvent event) {
         Koth koth = KothPlugin.getInstance().actualKoth;
-        FPlayer fPlayer = FPlayers.getInstance().getByPlayer(event.getEntity());
-        Faction faction = fPlayer.getFaction();
-        if (!faction.isWilderness() && koth.getPoints().containsKey(faction)) {
-            int totalPoints = (int) (koth.getPoints().get(faction) * KothPlugin.getInstance().getConfig().getDouble("death-multiplier"));
-            int point = koth.getPoints().get(faction);
-            koth.getPoints().put(faction, totalPoints);
-            point = point - koth.getPoints().get(faction);
+        String factionName = KothPlugin.getInstance().iFactions.getFactionTagByPlayer(event.getEntity());
+        if (factionName != null && koth.getPoints().containsKey(factionName)) {
+            int totalPoints = (int) (koth.getPoints().get(factionName) * KothPlugin.getInstance().getConfig().getDouble("death-multiplier"));
+            int point = koth.getPoints().get(factionName);
+            koth.getPoints().put(factionName, totalPoints);
+            point = point - koth.getPoints().get(factionName);
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
                     KothPlugin.getInstance().getConfig().getString("messages.death-message")
                             .replace("{points}", String.valueOf(point))
                             .replace("{player}", event.getEntity().getName())
-                            .replace("{faction}", faction.getTag())));
+                            .replace("{faction}", factionName)));
         }
     }
 

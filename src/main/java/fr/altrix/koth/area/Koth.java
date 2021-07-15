@@ -1,22 +1,14 @@
 package fr.altrix.koth.area;
 
-import be.maximvdw.featherboard.api.FeatherBoardAPI;
-import be.maximvdw.placeholderapi.PlaceholderAPI;
-import com.massivecraft.factions.Faction;
-import com.mysql.jdbc.log.Log;
-import fr.altrix.koth.KothPlugin;
+import be.maximvdw.featherboard.api.*;
+import be.maximvdw.placeholderapi.*;
+import fr.altrix.koth.*;
 import org.bukkit.*;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.configuration.*;
+import org.bukkit.entity.*;
+import org.bukkit.scheduler.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+import java.util.*;
 
 public class Koth {
 
@@ -27,21 +19,8 @@ public class Koth {
     private Location min, max;
     private Location middle;
     private boolean started;
-    private Map<Faction, Integer> points;
-    private List<Faction> top;
-
-    public Koth(String id, String name, int maxTime, int time, Location min, Location max, Location middle, boolean started, Map<Faction, Integer> points, List<Faction> top) {
-        this.id = id;
-        this.name = name;
-        this.maxTime = maxTime;
-        this.time = time;
-        this.min = min;
-        this.max = max;
-        this.middle = middle;
-        this.started = started;
-        this.points = points;
-        this.top = top;
-    }
+    private Map<String, Integer> points;
+    private List<String> top;
 
     public Koth(ConfigurationSection section, String id) {
         this.id = id;
@@ -129,19 +108,19 @@ public class Koth {
         this.started = started;
     }
 
-    public Map<Faction, Integer> getPoints() {
+    public Map<String, Integer> getPoints() {
         return points;
     }
 
-    public void setPoints(Map<Faction, Integer> points) {
+    public void setPoints(Map<String, Integer> points) {
         this.points = points;
     }
 
-    public List<Faction> getTop() {
+    public List<String> getTop() {
         return top;
     }
 
-    public void setTop(List<Faction> top) {
+    public void setTop(List<String> top) {
         this.top = top;
     }
 
@@ -202,9 +181,9 @@ public class Koth {
     private void rewards() {
         for (int i = 1; i < 6; i++) {
             if (top.size() >= i) {
-                Faction faction = top.get(i - 1);
+                String factionName = top.get(i - 1);
 
-                String command = KothPlugin.getInstance().getConfig().getString("reward-" + i).replace("{faction}", faction.getTag());
+                String command = KothPlugin.getInstance().getConfig().getString("reward-" + i).replace("{faction}", factionName);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
             }
         }

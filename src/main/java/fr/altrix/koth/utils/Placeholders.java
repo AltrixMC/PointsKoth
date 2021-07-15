@@ -15,26 +15,22 @@ public class Placeholders {
         for (int i = 1; i < 6; i++) {
             int number = i;
             PlaceholderAPI.registerPlaceholder(KothPlugin.getInstance(), "koth" + number + "_points", placeholderReplaceEvent -> {
-                List<Faction> list = koth.getTop();
-                if (list != null && list.size() >= number && list.get(number - 1) != null) {
-                    Map<Faction, Integer> map = koth.getPoints();
-                    return String.valueOf(map.get(list.get(number - 1)));
-                }
+                List<String> list = koth.getTop();
+                if (list != null && list.size() >= number && list.get(number - 1) != null)
+                    return String.valueOf(koth.getPoints().get(list.get(number - 1)));
                 return "0";
             });
             PlaceholderAPI.registerPlaceholder(KothPlugin.getInstance(), "koth" + number + "_faction", placeholderReplaceEvent -> {
-                List<Faction> list = koth.getTop();
-                if (list != null && list.size() >= number && list.get(number - 1) != null) {
-                    Faction factions = list.get(number - 1);
-                    return factions.getTag();
-                }
+                List<String> list = koth.getTop();
+                if (list != null && list.size() >= number && list.get(number - 1) != null)
+                    return list.get(number - 1);
                 return "Aucun";
             });
             PlaceholderAPI.registerPlaceholder(KothPlugin.getInstance(), "kothmy_points", placeholderReplaceEvent -> {
-                Map<Faction, Integer> map = koth.getPoints();
-                FPlayer fPlayer = FPlayers.getInstance().getByPlayer(placeholderReplaceEvent.getPlayer());
-                if (map.get(fPlayer.getFaction()) != null)
-                    return String.valueOf(map.get(fPlayer.getFaction()));
+                Map<String, Integer> map = koth.getPoints();
+                String factionName = KothPlugin.getInstance().iFactions.getFactionTagByPlayer(placeholderReplaceEvent.getPlayer());
+                if (map.get(factionName) != null)
+                    return String.valueOf(map.get(factionName));
                 return "0";
             });
         }
