@@ -25,7 +25,6 @@ public class UpdateListener implements Listener {
                     TextComponent textComponent = new TextComponent("https://www.spigotmc.org/resources/pointskoth-points-king-of-the-hill.93590/");
                     textComponent.setColor(ChatColor.GOLD);
                     textComponent.setBold(true);
-                    textComponent.setUnderlined(true);
                     textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/pointskoth-points-king-of-the-hill.93590/"));
                     player.spigot().sendMessage(textComponent);
                 }
