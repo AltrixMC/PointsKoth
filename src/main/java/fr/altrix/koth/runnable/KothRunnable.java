@@ -25,9 +25,9 @@ public class KothRunnable {
 
         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
                 KothPlugin.getInstance().getConfig().getString("messages.koth-started")
-                .replace("{kothX}", String.valueOf(koth1.getMiddle().getBlockX()))
-                .replace("{kothZ}", String.valueOf(koth1.getMiddle().getBlockZ()))
-                .replace("{kothName}", koth1.getName())));
+                .replace("%koth_x%", String.valueOf(koth1.getMiddle().getBlockX()))
+                .replace("%koth_z%", String.valueOf(koth1.getMiddle().getBlockZ()))
+                .replace("%koth_name%", koth1.getName())));
 
         new BukkitRunnable() {
             final Koth koth = koth1;
