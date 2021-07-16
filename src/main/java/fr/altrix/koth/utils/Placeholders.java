@@ -112,27 +112,27 @@ public class Placeholders extends PlaceholderExpansion{
                     List<String> list = KothPlugin.getInstance().actualKoth.getTop();
                     if (list != null && list.size() >= i && list.get(i - 1) != null)
                         return list.get(i - 1);
-                    return "Aucun";
+                    return "None";
                 }
             }
 
             if (identifier.equalsIgnoreCase("x")) {
                 if (KothPlugin.getInstance().actualKoth.getStarted())
                     return String.valueOf(KothPlugin.getInstance().actualKoth.getMiddle().getBlockX());
-                return "Aucun";
+                return "None";
             }
 
             if (identifier.equalsIgnoreCase("z")) {
                 if (KothPlugin.getInstance().actualKoth.getStarted())
                     return String.valueOf(KothPlugin.getInstance().actualKoth.getMiddle().getBlockZ());
-                return "Aucun";
+                return "None";
             }
 
             if (identifier.equalsIgnoreCase("time")) {
                 int restTime = KothPlugin.getInstance().actualKoth.getMaxTime() - KothPlugin.getInstance().actualKoth.getTime();
                 if (KothPlugin.getInstance().actualKoth.getStarted())
                     return String.valueOf(restTime);
-                return "Aucun";
+                return "None";
             }
 
             if (identifier.equalsIgnoreCase("my")) {

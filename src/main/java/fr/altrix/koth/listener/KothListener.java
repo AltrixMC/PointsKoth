@@ -24,9 +24,9 @@ public class KothListener implements Listener {
             point = point - koth.getPoints().get(factionName);
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
                     KothPlugin.getInstance().getConfig().getString("messages.death-message")
-                            .replace("{points}", String.valueOf(point))
-                            .replace("{player}", event.getEntity().getName())
-                            .replace("{faction}", factionName)));
+                            .replace("%points%", String.valueOf(point))
+                            .replace("%player%", event.getEntity().getName())
+                            .replace("%faction%", factionName)));
         }
     }
 

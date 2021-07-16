@@ -16,9 +16,9 @@
 
 
 messages:
-  koth-started: "&6&lExampleServer &f&l» &7The KOTH &6{kothName} &7just started (X: &6{koth_x} &7Z: &6{koth_z}&7)"
-  koth-finish: "&6&lExampleServer &f&l»  &7The KOTH &6{kothName} &7just won by the faction &6%koth_1_faction% &7!"
-  death-message: "&6&lExampleServer &f&l» &6{player} &7is dead and causes his faction (&6{faction}&7) to lose &6&l{points} points&7."
+  koth-started: "&6&lExampleServer &f&l» &7The KOTH &6%koth_name% &7just started (X: &6%koth_x% &7Z: &6%koth_z%&7)"
+  koth-finish: "&6&lExampleServer &f&l»  &7The KOTH &6%koth_name% &7just won by the faction &6%koth_1_faction% &7!"
+  death-message: "&6&lExampleServer &f&l» &6%player% &7is dead and causes his faction (&6%faction%&7) to lose &6&l%points% points&7."
 
 
 reward-1: "ranks give {faction} 75"

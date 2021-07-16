@@ -122,7 +122,8 @@ public class Koth {
     }
 
     public void finish() {
-        String message = ChatColor.translateAlternateColorCodes('&', KothPlugin.getInstance().getConfig().getString("messages.koth-finish").replace("{kothName}", name));
+        String message = ChatColor.translateAlternateColorCodes('&', KothPlugin.getInstance().getConfig().getString("messages.koth-finish")
+                .replace("%koth_name%", name));
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.sendMessage(PlaceholderAPI.setPlaceholders(p, message));
             KothPlugin.getInstance().iScoreBoard.showDefaultScoreBoard(p);
