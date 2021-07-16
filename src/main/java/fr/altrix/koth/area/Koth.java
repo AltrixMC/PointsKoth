@@ -1,8 +1,7 @@
 package fr.altrix.koth.area;
 
-import be.maximvdw.featherboard.api.*;
-import be.maximvdw.placeholderapi.*;
 import fr.altrix.koth.*;
+import me.clip.placeholderapi.*;
 import org.bukkit.*;
 import org.bukkit.configuration.*;
 import org.bukkit.entity.*;
@@ -56,16 +55,8 @@ public class Koth {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getMaxTime() {
         return maxTime;
-    }
-
-    public void setMaxTime(int maxTime) {
-        this.maxTime = maxTime;
     }
 
     public int getTime() {
@@ -76,28 +67,8 @@ public class Koth {
         this.time = time;
     }
 
-    public Location getMin() {
-        return min;
-    }
-
-    public void setMin(Location min) {
-        this.min = min;
-    }
-
-    public Location getMax() {
-        return max;
-    }
-
-    public void setMax(Location max) {
-        this.max = max;
-    }
-
     public Location getMiddle() {
         return middle;
-    }
-
-    public void setMiddle(Location middle) {
-        this.middle = middle;
     }
 
     public Boolean getStarted() {
@@ -110,10 +81,6 @@ public class Koth {
 
     public Map<String, Integer> getPoints() {
         return points;
-    }
-
-    public void setPoints(Map<String, Integer> points) {
-        this.points = points;
     }
 
     public List<String> getTop() {
@@ -139,8 +106,7 @@ public class Koth {
             return false;
         if (player.getWorld() != this.min.getWorld())
             return false;
-        Location loc = player.getLocation();
-        return isInAABB(loc);
+        return isInAABB(player.getLocation());
     }
 
     private Location getMinimum(Location loc1, Location loc2) {
@@ -155,17 +121,11 @@ public class Koth {
         this.middle = this.min.clone().add(this.max.clone()).multiply(0.5D);
     }
 
-    private void clearAll() {
-        started = false;
-        top = new ArrayList<>();
-        points = new HashMap<>();
-    }
-
     public void finish() {
         String message = ChatColor.translateAlternateColorCodes('&', KothPlugin.getInstance().getConfig().getString("messages.koth-finish").replace("{kothName}", name));
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendMessage(PlaceholderAPI.replacePlaceholders(p, message));
-            FeatherBoardAPI.resetDefaultScoreboard(p);
+            p.sendMessage(PlaceholderAPI.setPlaceholders(p, message));
+            KothPlugin.getInstance().iScoreBoard.showDefaultScoreBoard(p);
         }
         new BukkitRunnable() {
             @Override
@@ -175,7 +135,12 @@ public class Koth {
                 KothPlugin.getInstance().actualKoth = null;
             }
         }.runTask(KothPlugin.getInstance());
+    }
 
+    private void clearAll() {
+        started = false;
+        top = new ArrayList<>();
+        points = new HashMap<>();
     }
 
     private void rewards() {

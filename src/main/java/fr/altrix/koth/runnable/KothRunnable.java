@@ -22,7 +22,7 @@ import java.util.TreeMap;
 public class KothRunnable {
 
     public void startRunnable(Koth koth1) {
-        KothPlugin.getInstance().actualKoth = koth1;
+
         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
                 KothPlugin.getInstance().getConfig().getString("messages.koth-started")
                 .replace("{kothX}", String.valueOf(koth1.getMiddle().getBlockX()))
@@ -30,8 +30,7 @@ public class KothRunnable {
                 .replace("{kothName}", koth1.getName())));
 
         new BukkitRunnable() {
-            IFactions iFactions = new FactionsUUID();
-            Koth koth = KothPlugin.getInstance().actualKoth;
+            final Koth koth = koth1;
             int time = 0;
             @Override
             public void run() {
@@ -39,11 +38,10 @@ public class KothRunnable {
                 if (koth.getPoints().size() > 0 && koth.getPoints().get(koth.getTop().get(0)) >= KothPlugin.getInstance().getConfig().getInt("max-score")) koth.setStarted(false);
 
                 if (koth.getStarted()) {
-                    koth = KothPlugin.getInstance().actualKoth;
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        FeatherBoardAPI.showScoreboard(p, "koth");
+                        KothPlugin.getInstance().iScoreBoard.showScoreBoardToPlayer(p, "koth");
                         if (koth.isInArea(p)) {
-                            String factionName = iFactions.getFactionTagByPlayer(p);
+                            String factionName = KothPlugin.getInstance().iFactions.getFactionTagByPlayer(p);
                             if (factionName != null)
                                 if (koth.getPoints().containsKey(factionName))
                                     koth.getPoints().put(factionName, koth.getPoints().get(factionName) + 1);
@@ -51,7 +49,8 @@ public class KothRunnable {
                         }
                     }
                     calculateTop(koth);
-                    time++;
+                    time++; koth.setTime(time);
+                    KothPlugin.getInstance().actualKoth = koth;
                 } else { koth.finish(); cancel();}
             }
         }.runTaskTimerAsynchronously(KothPlugin.getInstance(), 0, 20);

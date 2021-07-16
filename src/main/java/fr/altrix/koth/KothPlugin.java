@@ -4,6 +4,7 @@ import fr.altrix.koth.area.*;
 import fr.altrix.koth.command.*;
 import fr.altrix.koth.factions.*;
 import fr.altrix.koth.listener.*;
+import fr.altrix.koth.scoreboards.*;
 import fr.altrix.koth.utils.*;
 import fr.altrix.koth.utils.bstats.*;
 import fr.better.command.*;
@@ -27,6 +28,7 @@ public final class KothPlugin extends JavaPlugin {
     public Koth actualKoth;
 
     public IFactions iFactions;
+    public IScoreBoard iScoreBoard;
 
     @Override
     public void onEnable() {
@@ -54,7 +56,7 @@ public final class KothPlugin extends JavaPlugin {
                 upToDate = false;
             }
         });
-        setActualFaction();
+        setActualsLibs();
     }
 
     public void loadKoths() {
@@ -69,8 +71,12 @@ public final class KothPlugin extends JavaPlugin {
         return instance;
     }
 
-    private void setActualFaction() {
+    private void setActualsLibs() {
         for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+            if (plugin.getName().equalsIgnoreCase("FeatherBoard"))
+                iScoreBoard = new FeatherBoard();
+            else if (plugin.getName().equalsIgnoreCase("QuickBoard"))
+                iScoreBoard = new QuickBoard();
             if (plugin.getName().equalsIgnoreCase("Factions")) {
                 String authors = plugin.getDescription().getAuthors().toString();
                 if (authors.contains("Driftay"))

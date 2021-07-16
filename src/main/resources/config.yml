@@ -1,20 +1,23 @@
 ####################################################
 #                                                  #
 #                  Placeholders :                  #
-#                 {kothX} : get X                  #
-#                 {kothZ} : get Z                  #
+#                 %koth_x% : get X                 #
+#                 %koth_z% : get Z                 #
 #                                                  #
-#        {koth1_faction} : get first faction       #
-#     {koth1_points} : get first faction points    #
+#     %koth_1_faction% : get first faction name    #
+#     %koth_1_points% : get first faction points   #
 #               The same for 2,3,4,5               #
 #                                                  #
-#       {kothTime} : have the remaining time       #
+#    %koth_my% : have the points of your faction   #
+#                                                  #
+#       %koth-time% : have the remaining time      #
+#                                                  #
 ####################################################
 
 
 messages:
-  koth-started: "&6&lExampleServer &f&l» &7The KOTH &6{kothName} &7just started (X: &6{kothX} &7Z: &6{kothZ}&7)"
-  koth-finish: "&6&lExampleServer &f&l»  &7The KOTH &6{kothName} &7just won by the faction &6{koth1_faction} &7!"
+  koth-started: "&6&lExampleServer &f&l» &7The KOTH &6{kothName} &7just started (X: &6{koth_x} &7Z: &6{koth_z}&7)"
+  koth-finish: "&6&lExampleServer &f&l»  &7The KOTH &6{kothName} &7just won by the faction &6%koth_1_faction% &7!"
   death-message: "&6&lExampleServer &f&l» &6{player} &7is dead and causes his faction (&6{faction}&7) to lose &6&l{points} points&7."
 
 

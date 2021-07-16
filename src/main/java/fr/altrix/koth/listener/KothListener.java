@@ -5,10 +5,11 @@ import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import fr.altrix.koth.KothPlugin;
 import fr.altrix.koth.area.Koth;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.*;
 import org.bukkit.event.*;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.*;
+import org.bukkit.inventory.*;
 
 public class KothListener implements Listener {
 
