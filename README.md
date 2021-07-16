@@ -7,6 +7,6 @@ The koth remains stable even with more than 500 connected !
 Dependencies :
 - FeatherBoard
 - MVdWPlaceholderAPI
-- FactionsUUID
+- Factions plugin like : FactionsUUID, SaberFactions...
 
 To connect the plugin to FeatherBoard you must create a new scoreboard named koth, then you can add the placeholders
