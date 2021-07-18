@@ -138,8 +138,6 @@ public class Placeholders extends PlaceholderExpansion{
             if (identifier.equalsIgnoreCase("my")) {
                 Map<String, Integer> map = KothPlugin.getInstance().actualKoth.getPoints();
                 String factionName = KothPlugin.getInstance().iFactions.getFactionTagByPlayer(player);
-                System.out.println(map);
-                System.out.println(factionName);
                 if (map.get(factionName) != null)
                     return String.valueOf(map.get(factionName));
                 return "0";

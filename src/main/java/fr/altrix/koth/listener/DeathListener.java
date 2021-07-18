@@ -11,7 +11,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.*;
 
-public class KothListener implements Listener {
+public class DeathListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onDead(PlayerDeathEvent event) {

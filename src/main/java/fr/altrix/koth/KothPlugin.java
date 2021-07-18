@@ -35,7 +35,7 @@ public final class KothPlugin extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
 
-        getServer().getPluginManager().registerEvents(new KothListener(), this);
+        getServer().getPluginManager().registerEvents(new DeathListener(), this);
         getServer().getPluginManager().registerEvents(new UpdateListener(), this);
 
         CommandsBuilder builder = CommandsBuilder.init(this);
