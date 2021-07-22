@@ -3,5 +3,5 @@ version: @version@
 main: fr.altrix.koth.KothPlugin
 authors: [ AltrixMC ]
 commands:
-  koth:
-    permission: koth.command
+  pkoth:
+    permission: pkoth.admin

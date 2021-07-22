@@ -5,8 +5,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import org.bukkit.event.*;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -14,7 +13,7 @@ import java.awt.*;
 
 public class UpdateListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (player.isOp() && !KothPlugin.getInstance().upToDate) {
@@ -29,8 +28,7 @@ public class UpdateListener implements Listener {
                     textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/pointskoth-points-king-of-the-hill.93590/"));
                     player.spigot().sendMessage(textComponent);
                 }
-            }.runTaskLater(KothPlugin.getInstance(), 30L);
+            }.runTaskLaterAsynchronously(KothPlugin.getInstance(), 40L);
         }
     }
-
 }

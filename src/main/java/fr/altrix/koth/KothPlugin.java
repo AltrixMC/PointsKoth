@@ -39,7 +39,7 @@ public final class KothPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new UpdateListener(), this);
 
         CommandsBuilder builder = CommandsBuilder.init(this);
-        Command command = builder.createComplexCommand("koth");
+        Command command = builder.createComplexCommand("pkoth");
         command.add("start", new StartArgs(), ArgumentType.DONT_NEED_PLAYER);
         command.add("stop", new StopArgs(), ArgumentType.DONT_NEED_PLAYER);
         command.add("status", new StatusArgs(), ArgumentType.DONT_NEED_PLAYER);
@@ -86,6 +86,10 @@ public final class KothPlugin extends JavaPlugin {
                 else if (authors.contains("Cayorion") && Bukkit.getPluginManager().isPluginEnabled("MassiveCore"))
                     iFactions = new MassiveFaction();
             }
+        }
+        if (iFactions == null) {
+            Bukkit.getLogger().warning("\n----------\nPlease use a faction plugin\n----------\n");
+            Bukkit.getPluginManager().disablePlugin(this);
         }
     }
 }
