@@ -2,8 +2,6 @@ package fr.altrix.koth.factions;
 
 
 import com.massivecraft.factions.*;
-import fr.altrix.koth.*;
-import net.prosavage.factionsx.*;
 import org.bukkit.entity.*;
 
 public class FactionsUUID implements IFactions {

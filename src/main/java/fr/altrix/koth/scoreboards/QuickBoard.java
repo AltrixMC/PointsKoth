@@ -1,7 +1,6 @@
 package fr.altrix.koth.scoreboards;
 
 import fr.altrix.koth.*;
-import me.tade.quickboard.*;
 import me.tade.quickboard.api.*;
 import org.bukkit.entity.*;
 import org.bukkit.scheduler.*;

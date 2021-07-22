@@ -104,12 +104,12 @@ public class Placeholders extends PlaceholderExpansion{
 
             for (int i = 1; i < 6; i++) {
                 if (identifier.equals(i + "_points")) {
-                    List<String> list = KothPlugin.getInstance().actualKoth.getTop();
+                    List<String> list = KothPlugin.getInstance().getKothManager().actualKoth.getTop();
                     if (list != null && list.size() >= i && list.get(i - 1) != null)
-                        return String.valueOf(KothPlugin.getInstance().actualKoth.getPoints().get(list.get(i - 1)));
+                        return String.valueOf(KothPlugin.getInstance().getKothManager().actualKoth.getPoints().get(list.get(i - 1)));
                     return "0";
                 } else if (identifier.equals(i + "_faction")) {
-                    List<String> list = KothPlugin.getInstance().actualKoth.getTop();
+                    List<String> list = KothPlugin.getInstance().getKothManager().actualKoth.getTop();
                     if (list != null && list.size() >= i && list.get(i - 1) != null)
                         return list.get(i - 1);
                     return "None";
@@ -117,27 +117,27 @@ public class Placeholders extends PlaceholderExpansion{
             }
 
             if (identifier.equalsIgnoreCase("x")) {
-                if (KothPlugin.getInstance().actualKoth.getStarted())
-                    return String.valueOf(KothPlugin.getInstance().actualKoth.getMiddle().getBlockX());
+                if (KothPlugin.getInstance().getKothManager().actualKoth.getStarted())
+                    return String.valueOf(KothPlugin.getInstance().getKothManager().actualKoth.getMiddle().getBlockX());
                 return "None";
             }
 
             if (identifier.equalsIgnoreCase("z")) {
-                if (KothPlugin.getInstance().actualKoth.getStarted())
-                    return String.valueOf(KothPlugin.getInstance().actualKoth.getMiddle().getBlockZ());
+                if (KothPlugin.getInstance().getKothManager().actualKoth.getStarted())
+                    return String.valueOf(KothPlugin.getInstance().getKothManager().actualKoth.getMiddle().getBlockZ());
                 return "None";
             }
 
             if (identifier.equalsIgnoreCase("time")) {
-                int restTime = KothPlugin.getInstance().actualKoth.getMaxTime() - KothPlugin.getInstance().actualKoth.getTime();
-                if (KothPlugin.getInstance().actualKoth.getStarted())
+                int restTime = KothPlugin.getInstance().getKothManager().actualKoth.getMaxTime() - KothPlugin.getInstance().getKothManager().actualKoth.getTime();
+                if (KothPlugin.getInstance().getKothManager().actualKoth.getStarted())
                     return String.valueOf(restTime);
                 return "None";
             }
 
             if (identifier.equalsIgnoreCase("my")) {
-                Map<String, Integer> map = KothPlugin.getInstance().actualKoth.getPoints();
-                String factionName = KothPlugin.getInstance().iFactions.getFactionTagByPlayer(player);
+                Map<String, Integer> map = KothPlugin.getInstance().getKothManager().actualKoth.getPoints();
+                String factionName = KothPlugin.getInstance().getInterfacesManager().iFactions.getFactionTagByPlayer(player);
                 if (map.get(factionName) != null)
                     return String.valueOf(map.get(factionName));
                 return "0";

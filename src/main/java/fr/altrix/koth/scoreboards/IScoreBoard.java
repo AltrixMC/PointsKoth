@@ -1,4 +1,4 @@
-package fr.altrix.koth;
+package fr.altrix.koth.scoreboards;
 
 import org.bukkit.entity.*;
 

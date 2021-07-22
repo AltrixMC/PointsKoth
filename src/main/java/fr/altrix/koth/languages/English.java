@@ -1,7 +1,5 @@
 package fr.altrix.koth.languages;
 
-import fr.altrix.koth.*;
-
 public class English implements ILanguages {
     @Override
     public String reloadedSuccessfully() {
@@ -11,6 +9,11 @@ public class English implements ILanguages {
     @Override
     public String reloadUtility() {
         return "reload the plugin";
+    }
+
+    @Override
+    public String kothIsStartedPleaseStop() {
+        return "§6PointsKoth » §7A koth is in progress. Please stop it before the reload";
     }
 
     @Override

@@ -39,9 +39,10 @@ public class KothRunnable {
 
                 if (koth.getStarted()) {
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (KothPlugin.getInstance().iScoreBoard != null) KothPlugin.getInstance().iScoreBoard.showScoreBoardToPlayer(p, "koth");
+                        if (KothPlugin.getInstance().getInterfacesManager().iScoreBoard != null)
+                            KothPlugin.getInstance().getInterfacesManager().iScoreBoard.showScoreBoardToPlayer(p, "koth");
                         if (koth.isInArea(p)) {
-                            String factionName = KothPlugin.getInstance().iFactions.getFactionTagByPlayer(p);
+                            String factionName = KothPlugin.getInstance().getInterfacesManager().iFactions.getFactionTagByPlayer(p);
                             if (factionName != null)
                                 if (koth.getPoints().containsKey(factionName))
                                     koth.getPoints().put(factionName, koth.getPoints().get(factionName) + 1);
@@ -50,7 +51,7 @@ public class KothRunnable {
                     }
                     calculateTop(koth);
                     time++; koth.setTime(time);
-                    KothPlugin.getInstance().actualKoth = koth;
+                    KothPlugin.getInstance().getKothManager().actualKoth= koth;
                 } else { koth.finish(); cancel();}
             }
         }.runTaskTimerAsynchronously(KothPlugin.getInstance(), 0, 20);

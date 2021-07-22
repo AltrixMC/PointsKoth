@@ -1,7 +1,6 @@
 package fr.altrix.koth.scoreboards;
 
 import be.maximvdw.featherboard.api.*;
-import fr.altrix.koth.*;
 import org.bukkit.entity.*;
 
 public class FeatherBoard implements IScoreBoard {

@@ -6,10 +6,28 @@ import fr.altrix.koth.runnable.KothRunnable;
 import fr.altrix.koth.utils.Placeholders;
 import org.bukkit.*;
 
+import java.util.*;
+
 public class KothManager {
 
+    public List<Koth> koths;
+    public Koth actualKoth;
+
+    public KothManager() {
+        loadKoths();
+
+    }
+
+    public void loadKoths() {
+        koths = new ArrayList<>();
+        for (String s : KothPlugin.getInstance().getConfig().getConfigurationSection("koth").getKeys(false)) {
+            Koth koth = new Koth(KothPlugin.getInstance().getConfig().getConfigurationSection("koth." + s), s);
+            koths.add(koth);
+        }
+    }
+
     public Koth getKothById(String id) {
-        for (Koth koth : KothPlugin.getInstance().koths) {
+        for (Koth koth : koths) {
             if (koth.getId().equalsIgnoreCase(id))
                 return koth;
         }

@@ -5,6 +5,7 @@ import fr.altrix.koth.command.*;
 import fr.altrix.koth.factions.*;
 import fr.altrix.koth.languages.*;
 import fr.altrix.koth.listener.*;
+import fr.altrix.koth.manager.*;
 import fr.altrix.koth.scoreboards.*;
 import fr.altrix.koth.utils.*;
 import fr.altrix.koth.utils.bstats.*;
@@ -25,12 +26,8 @@ public final class KothPlugin extends JavaPlugin {
     public Logger log = Logger.getLogger("Minecraft");
     public boolean upToDate;
 
-    public List<Koth> koths;
-    public Koth actualKoth;
-
-    public IFactions iFactions;
-    public IScoreBoard iScoreBoard;
-    public ILanguages iLanguages;
+    private KothManager kothManager;
+    private InterfacesManager interfacesManager;
 
     @Override
     public void onEnable() {
@@ -40,14 +37,22 @@ public final class KothPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new DeathListener(), this);
         getServer().getPluginManager().registerEvents(new UpdateListener(), this);
 
+        addCommands();
+        update();
+
+        kothManager = new KothManager();
+        interfacesManager = new InterfacesManager();
+    }
+
+    private void addCommands() {
         CommandsBuilder builder = CommandsBuilder.init(this);
         Command command = builder.createComplexCommand("pkoth");
         command.add("start", new StartArgs(), ArgumentType.DONT_NEED_PLAYER);
         command.add("stop", new StopArgs(), ArgumentType.DONT_NEED_PLAYER);
         command.add("status", new StatusArgs(), ArgumentType.DONT_NEED_PLAYER);
         command.add("reload", new ReloadArgs(), ArgumentType.DONT_NEED_PLAYER);
-
-        loadKoths();
+    }
+    private void update() {
         Metrics metrics = new Metrics(this, 11805);
         new UpdateChecker(this, 93590).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
@@ -58,52 +63,23 @@ public final class KothPlugin extends JavaPlugin {
                 upToDate = false;
             }
         });
-        setActualsLibs();
-    }
-
-    public void loadKoths() {
-        koths = new ArrayList<>();
-        for (String s : getConfig().getConfigurationSection("koth").getKeys(false)) {
-            Koth koth = new Koth(getConfig().getConfigurationSection("koth." + s), s);
-            koths.add(koth);
-        }
     }
 
     public static KothPlugin getInstance() {
         return instance;
     }
 
-    private void setActualsLibs() {
-        for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-            if (plugin.getName().equalsIgnoreCase("FeatherBoard"))
-                iScoreBoard = new FeatherBoard();
-            else if (plugin.getName().equalsIgnoreCase("QuickBoard"))
-                iScoreBoard = new QuickBoard();
-            if (plugin.getName().equalsIgnoreCase("Factions")) {
-                String authors = plugin.getDescription().getAuthors().toString();
-                if (authors.contains("Driftay"))
-                    iFactions = new FactionsUUID();
-                else if (authors.contains("drtshock"))
-                    iFactions = new FactionsUUID();
-                else if (authors.contains("Cayorion") && Bukkit.getPluginManager().isPluginEnabled("MassiveCore"))
-                    iFactions = new MassiveFaction();
-            }
-        }
-        if (getConfig().getString("language").equalsIgnoreCase("fr"))
-            iLanguages = new French();
-        else if (getConfig().getString("language").equalsIgnoreCase("en"))
-            iLanguages = new English();
-        else iLanguages = new English();
-
-        if (iFactions == null) {
-            Bukkit.getLogger().warning("\n----------\nPlease use a faction plugin\n----------\n");
-            Bukkit.getPluginManager().disablePlugin(this);
-        }
-    }
-
     public void reloadPlugin() {
         reloadConfig();
-        loadKoths();
-        setActualsLibs();
+        kothManager = new KothManager();
+        interfacesManager = new InterfacesManager();
+    }
+
+    public KothManager getKothManager() {
+        return kothManager;
+    }
+
+    public InterfacesManager getInterfacesManager() {
+        return interfacesManager;
     }
 }

@@ -1,10 +1,11 @@
-package fr.altrix.koth;
+package fr.altrix.koth.languages;
 
 public interface ILanguages {
 
     //Reload command
     String reloadedSuccessfully();
     String reloadUtility();
+    String kothIsStartedPleaseStop();
 
     //Start command
     String kothAlreadyStarted();

@@ -10,23 +10,23 @@ import java.util.List;
 public class StopArgs extends Argument {
     @Override
     public String utility() {
-        return KothPlugin.getInstance().iLanguages.stopUtility();
+        return KothPlugin.getInstance().getInterfacesManager().iLanguages.stopUtility();
     }
 
     @Override
     public String execute(Player player, List<String> parameters) {
         KothManager kothManager = new KothManager();
         if (kothManager.getKothById(parameters.get(0)) == null)
-            return KothPlugin.getInstance().iLanguages.kothNotFound()
+            return KothPlugin.getInstance().getInterfacesManager().iLanguages.kothNotFound()
                     .replace("{koth}", parameters.get(0));
 
         kothManager.stopGame(kothManager.getKothById(parameters.get(0)));
-        return KothPlugin.getInstance().iLanguages.kothStopped()
+        return KothPlugin.getInstance().getInterfacesManager().iLanguages.kothStopped()
                 .replace("{koth}", parameters.get(0));
     }
 
     @Override
     public String parameter() {
-        return KothPlugin.getInstance().iLanguages.stopParameters();
+        return KothPlugin.getInstance().getInterfacesManager().iLanguages.stopParameters();
     }
 }

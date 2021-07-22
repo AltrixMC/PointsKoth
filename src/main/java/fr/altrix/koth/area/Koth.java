@@ -127,14 +127,14 @@ public class Koth {
                 .replace("%koth_name%", name));
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.sendMessage(PlaceholderAPI.setPlaceholders(p, message));
-            KothPlugin.getInstance().iScoreBoard.showDefaultScoreBoard(p);
+            KothPlugin.getInstance().getInterfacesManager().iScoreBoard.showDefaultScoreBoard(p);
         }
         new BukkitRunnable() {
             @Override
             public void run() {
                 rewards();
                 clearAll();
-                KothPlugin.getInstance().actualKoth = null;
+                KothPlugin.getInstance().getKothManager().actualKoth = null;
             }
         }.runTask(KothPlugin.getInstance());
     }

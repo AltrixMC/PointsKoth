@@ -1,4 +1,4 @@
-package fr.altrix.koth;
+package fr.altrix.koth.factions;
 
 import org.bukkit.entity.*;
 

@@ -15,8 +15,8 @@ public class DeathListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onDead(PlayerDeathEvent event) {
-        Koth koth = KothPlugin.getInstance().actualKoth;
-        String factionName = KothPlugin.getInstance().iFactions.getFactionTagByPlayer(event.getEntity());
+        Koth koth = KothPlugin.getInstance().getKothManager().actualKoth;
+        String factionName = KothPlugin.getInstance().getInterfacesManager().iFactions.getFactionTagByPlayer(event.getEntity());
         if (factionName != null && koth.getPoints().containsKey(factionName)) {
             int totalPoints = (int) (koth.getPoints().get(factionName) * KothPlugin.getInstance().getConfig().getDouble("death-multiplier"));
             int point = koth.getPoints().get(factionName);
