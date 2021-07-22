@@ -20,7 +20,7 @@ import java.util.logging.*;
 
 public final class KothPlugin extends JavaPlugin {
 
-    public static KothPlugin instance;
+    private static KothPlugin instance;
 
     public Logger log = Logger.getLogger("Minecraft");
     public boolean upToDate;
