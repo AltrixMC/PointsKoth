@@ -89,8 +89,12 @@ public final class KothPlugin extends JavaPlugin {
                     iFactions = new MassiveFaction();
             }
         }
-        if (getConfig().getString("language").equalsIgnoreCase("en"))
+        if (getConfig().getString("language").equalsIgnoreCase("fr"))
+            iLanguages = new French();
+        else if (getConfig().getString("language").equalsIgnoreCase("en"))
             iLanguages = new English();
+        else iLanguages = new English();
+
         if (iFactions == null) {
             Bukkit.getLogger().warning("\n----------\nPlease use a faction plugin\n----------\n");
             Bukkit.getPluginManager().disablePlugin(this);

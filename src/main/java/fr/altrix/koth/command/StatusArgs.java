@@ -10,16 +10,17 @@ import java.util.List;
 public class StatusArgs extends Argument {
     @Override
     public String utility() {
-        return "get the current koth";
+        return KothPlugin.getInstance().iLanguages.statusUtility();
     }
 
     @Override
     public String execute(Player player, List<String> parameters) {
         Koth koth = KothPlugin.getInstance().actualKoth;
         if (koth == null)
-            return "§6PointsKoth » §7No koth is started";
+            return KothPlugin.getInstance().iLanguages.noKothIsStarted();
 
-        return "§6PointsKoth » §7The koth §6" + koth.getName() + " §7is started";
+        return KothPlugin.getInstance().iLanguages.kothIsStarted()
+                .replace("{koth}", koth.getName());
     }
 
     @Override

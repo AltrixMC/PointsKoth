@@ -21,7 +21,9 @@ public interface ILanguages {
 
     //Stop command
     String kothStopped();
+
     String stopParameters();
+    String stopUtility();
 
     //All
     String kothNotFound();

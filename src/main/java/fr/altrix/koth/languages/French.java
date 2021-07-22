@@ -2,69 +2,69 @@ package fr.altrix.koth.languages;
 
 import fr.altrix.koth.*;
 
-public class English implements ILanguages {
+public class French implements ILanguages {
     @Override
     public String reloadedSuccessfully() {
-        return "§6PointsKoth » §7The plugin has been reloaded successfully !";
+        return "§6PointsKoth » §7le plugin a été rechargé avecc succès !";
     }
 
     @Override
     public String reloadUtility() {
-        return "reload the plugin";
+        return "recharger le plugin";
     }
 
     @Override
     public String kothAlreadyStarted() {
-        return "§6PointsKoth » §7A koth is already started ({koth})";
+        return "§6PointsKoth » §7Un koth est déja en cours ({koth})";
     }
 
     @Override
     public String kothStarted() {
-        return "§6PointsKoth » §7The koth §6{koth} §7has been started";
+        return "§6PointsKoth » §7Le koth §6{koth} §7a été démarré";
     }
 
     @Override
     public String startUtility() {
-        return "allows to start a koth";
+        return "vous permet de démarrer un koth";
     }
 
     @Override
     public String startParameters() {
-        return "<name>";
+        return "<nom>";
     }
 
     @Override
     public String noKothIsStarted() {
-        return "§6PointsKoth » §7No koth is started";
+        return "§6PointsKoth » §7Aucun koth n'est démarré";
     }
 
     @Override
     public String kothIsStarted() {
-        return "§6PointsKoth » §7The koth §6{koth} §7is started";
+        return "§6PointsKoth » §7Le koth §6{koth} §7est démarré";
     }
 
     @Override
     public String statusUtility() {
-        return "get the current koth";
+        return "avoir le koth actuel";
     }
 
     @Override
     public String kothStopped() {
-        return "§6PointsKoth » §7The koth §6{koth} §7has been stopped";
+        return "§6PointsKoth » §7Le koth §6{koth} §7a été stoppé";
     }
 
     @Override
     public String stopParameters() {
-        return "<name>";
+        return "<nom>";
     }
 
     @Override
     public String stopUtility() {
-        return "allows to stop a koth";
+        return "vous permet d'arreter un koth";
     }
 
     @Override
     public String kothNotFound() {
-        return "§6PointsKoth » §7The koth §6{koth} §7was not found";
+        return "§6PointsKoth » §7Le koth §6{koth} §7n'a pas été trouvé";
     }
 }
