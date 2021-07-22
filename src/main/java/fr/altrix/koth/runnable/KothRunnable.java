@@ -39,7 +39,7 @@ public class KothRunnable {
 
                 if (koth.getStarted()) {
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        KothPlugin.getInstance().iScoreBoard.showScoreBoardToPlayer(p, "koth");
+                        if (KothPlugin.getInstance().iScoreBoard != null) KothPlugin.getInstance().iScoreBoard.showScoreBoardToPlayer(p, "koth");
                         if (koth.isInArea(p)) {
                             String factionName = KothPlugin.getInstance().iFactions.getFactionTagByPlayer(p);
                             if (factionName != null)
