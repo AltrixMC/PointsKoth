@@ -3,6 +3,7 @@ package fr.altrix.koth;
 import fr.altrix.koth.area.*;
 import fr.altrix.koth.command.*;
 import fr.altrix.koth.factions.*;
+import fr.altrix.koth.languages.*;
 import fr.altrix.koth.listener.*;
 import fr.altrix.koth.scoreboards.*;
 import fr.altrix.koth.utils.*;
@@ -29,6 +30,7 @@ public final class KothPlugin extends JavaPlugin {
 
     public IFactions iFactions;
     public IScoreBoard iScoreBoard;
+    public ILanguages iLanguages;
 
     @Override
     public void onEnable() {
@@ -87,6 +89,8 @@ public final class KothPlugin extends JavaPlugin {
                     iFactions = new MassiveFaction();
             }
         }
+        if (getConfig().getString("language").equalsIgnoreCase("en"))
+            iLanguages = new English();
         if (iFactions == null) {
             Bukkit.getLogger().warning("\n----------\nPlease use a faction plugin\n----------\n");
             Bukkit.getPluginManager().disablePlugin(this);

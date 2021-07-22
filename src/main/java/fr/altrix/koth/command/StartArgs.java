@@ -11,25 +11,28 @@ import java.util.List;
 public class StartArgs extends Argument {
     @Override
     public String utility() {
-        return "allows to start a koth";
+        return KothPlugin.getInstance().iLanguages.startUtility();
     }
 
     @Override
     public String execute(Player player, List<String> parameters) {
         KothManager kothManager = new KothManager();
         if (kothManager.getKothById(parameters.get(0)) == null)
-            return "§6PointsKoth » §7The koth §6" + parameters.get(0) + " §7was not found";
+            return KothPlugin.getInstance().iLanguages.kothNotFound()
+                    .replace("{koth}", parameters.get(0));
 
         Koth koth = KothPlugin.getInstance().actualKoth;
         if (koth != null)
-            return "§6PointsKoth » §7A koth is already started (" + koth.getName() + ")";
+            return KothPlugin.getInstance().iLanguages.kothAlreadyStarted()
+                    .replace("{koth}", koth.getName());
 
         kothManager.startGame(kothManager.getKothById(parameters.get(0)));
-        return "§6PointsKoth » §7The koth §6" + parameters.get(0) + " §7has been started";
+        return KothPlugin.getInstance().iLanguages.kothStarted()
+                .replace("{koth}", parameters.get(0));
     }
 
     @Override
     public String parameter() {
-        return "<name>";
+        return KothPlugin.getInstance().iLanguages.startParameters();
     }
 }

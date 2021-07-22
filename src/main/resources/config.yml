@@ -14,6 +14,8 @@
 #                                                  #
 ####################################################
 
+# "en" or "fr"
+language: "en"
 
 messages:
   koth-started: "&6&lExampleServer &f&l» &7The KOTH &6%koth_name% &7just started (X: &6%koth_x% &7Z: &6%koth_z%&7)"
