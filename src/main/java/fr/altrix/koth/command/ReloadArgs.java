@@ -14,8 +14,7 @@ public class ReloadArgs extends Argument {
 
     @Override
     public String execute(Player player, List<String> parameters) {
-        KothPlugin.getInstance().reloadConfig();
-        KothPlugin.getInstance().loadKoths();
+        KothPlugin.getInstance().reloadPlugin();
         return KothPlugin.getInstance().iLanguages.reloadedSuccessfully();
     }
 

@@ -100,4 +100,10 @@ public final class KothPlugin extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
         }
     }
+
+    public void reloadPlugin() {
+        reloadConfig();
+        loadKoths();
+        setActualsLibs();
+    }
 }

@@ -5,3 +5,5 @@ authors: [ AltrixMC ]
 commands:
   pkoth:
     permission: pkoth.admin
+    aliases:
+      - koth
