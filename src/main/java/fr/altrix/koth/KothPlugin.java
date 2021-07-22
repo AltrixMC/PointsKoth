@@ -23,7 +23,6 @@ public final class KothPlugin extends JavaPlugin {
 
     private static KothPlugin instance;
 
-    public Logger log = Logger.getLogger("Minecraft");
     public boolean upToDate;
 
     private KothManager kothManager;
@@ -56,10 +55,10 @@ public final class KothPlugin extends JavaPlugin {
         Metrics metrics = new Metrics(this, 11805);
         new UpdateChecker(this, 93590).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                log.info("There is not a new update available.");
+                Bukkit.getLogger().info("There is not a new update available.");
                 upToDate = true;
             } else {
-                log.info("There is a new update available.");
+                Bukkit.getLogger().warning("There is a new update available.");
                 upToDate = false;
             }
         });
