@@ -13,12 +13,9 @@ public class KothManager {
     public List<Koth> koths;
     public Koth actualKoth;
 
-    public KothManager() {
-        loadKoths();
+    public KothManager() { loadKoths(); }
 
-    }
-
-    public void loadKoths() {
+    private void loadKoths() {
         koths = new ArrayList<>();
         for (String s : KothPlugin.getInstance().getConfig().getConfigurationSection("koth").getKeys(false)) {
             Koth koth = new Koth(KothPlugin.getInstance().getConfig().getConfigurationSection("koth." + s), s);

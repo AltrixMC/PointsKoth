@@ -3,6 +3,7 @@ package fr.altrix.koth.utils;
 import fr.altrix.koth.*;
 import fr.altrix.koth.area.*;
 import me.clip.placeholderapi.expansion.*;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.entity.*;
 
 import java.util.*;
@@ -101,6 +102,8 @@ public class Placeholders extends PlaceholderExpansion{
          */
         @Override
         public String onPlaceholderRequest(Player player, String identifier) {
+
+            if (player == null) return null;
 
             for (int i = 1; i < 6; i++) {
                 if (identifier.equals(i + "_points")) {

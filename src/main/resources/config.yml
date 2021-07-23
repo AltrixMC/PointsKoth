@@ -22,6 +22,18 @@ messages:
   koth-finish: "&6&lExampleServer &f&l»  &7The KOTH &6%koth_name% &7just won by the faction &6%koth_1_faction% &7!"
   death-message: "&6&lExampleServer &f&l» &6%player% &7is dead and causes his faction (&6%faction%&7) to lose &6&l%points% points&7."
 
+scoreboard:
+  title: "&6ExampleServer"
+  lines:
+    - "&6&lYour points : %koth_my%"
+    - ""
+    - "&6&lTop 1 : %koth_1_faction% %koth_1_points%"
+    - "&6&lTop 2 : %koth_2_faction% %koth_2_points%"
+    - "&6&lTop 3 : %koth_3_faction% %koth_3_points%"
+    - "&6&lTop 4 : %koth_4_faction% %koth_4_points%"
+    - "&6&lTop 5 : %koth_5_faction% %koth_5_points%"
+    - ""
+    - "&6&lTime : %koth_time%"
 
 reward-1: "ranks give {faction} 75"
 reward-2: "ranks give {faction} 50"

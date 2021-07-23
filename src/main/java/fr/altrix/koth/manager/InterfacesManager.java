@@ -4,8 +4,12 @@ import fr.altrix.koth.*;
 import fr.altrix.koth.factions.*;
 import fr.altrix.koth.languages.*;
 import fr.altrix.koth.scoreboards.*;
+import fr.mrmicky.fastboard.*;
 import org.bukkit.*;
+import org.bukkit.entity.*;
 import org.bukkit.plugin.*;
+
+import java.util.*;
 
 public class InterfacesManager {
 
@@ -23,6 +27,7 @@ public class InterfacesManager {
                 iScoreBoard = new FeatherBoard();
             else if (plugin.getName().equalsIgnoreCase("QuickBoard"))
                 iScoreBoard = new QuickBoard();
+            else iScoreBoard = new KothScoreBoard();
             if (plugin.getName().equalsIgnoreCase("Factions")) {
                 String authors = plugin.getDescription().getAuthors().toString();
                 if (authors.contains("Driftay"))
