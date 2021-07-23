@@ -22,6 +22,7 @@ messages:
   koth-finish: "&6&lExampleServer &f&l»  &7The KOTH &6%koth_name% &7just won by the faction &6%koth_1_faction% &7!"
   death-message: "&6&lExampleServer &f&l» &6%player% &7is dead and causes his faction (&6%faction%&7) to lose &6&l%points% points&7."
 
+#Use this when FeatherBoard or QuickBoard is not here
 scoreboard:
   title: "&6ExampleServer"
   lines:
