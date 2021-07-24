@@ -1,6 +1,7 @@
 package fr.altrix.koth.scoreboards;
 
 import fr.altrix.koth.*;
+import fr.altrix.koth.manager.*;
 import fr.mrmicky.fastboard.*;
 import me.clip.placeholderapi.*;
 import org.bukkit.*;
@@ -31,7 +32,11 @@ public class KothScoreBoard implements IScoreBoard {
             final List<String> lines1 = lines;
             @Override
             public void run() {
-                FastBoard board = new FastBoard(player);
+                InterfacesManager interfacesManager = KothPlugin.getInstance().getInterfacesManager();
+
+                FastBoard board;
+                if (interfacesManager.boards.containsKey(player)) board = interfacesManager.boards.get(player);
+                else board = new FastBoard(player);
 
                 String title = ChatColor.translateAlternateColorCodes('&', title1);
 
@@ -39,6 +44,8 @@ public class KothScoreBoard implements IScoreBoard {
 
                 board.updateTitle(title);
                 board.updateLines(lines);
+
+                interfacesManager.boards.put(player, board);
             }
         }.runTask(KothPlugin.getInstance());
     }

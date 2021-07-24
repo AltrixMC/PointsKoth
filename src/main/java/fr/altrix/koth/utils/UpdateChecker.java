@@ -3,9 +3,8 @@ package fr.altrix.koth.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
@@ -19,16 +18,39 @@ public class UpdateChecker {
         this.resourceId = resourceId;
     }
 
+    public void getDesc(final Consumer<String> consumer) {
+        Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+            makeRequest("https://api.spiget.org/v2/resources/"+this.resourceId+"/updates/latest", consumer::accept);
+        });
+    }
+
     public void getVersion(final Consumer<String> consumer) {
         Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
-            try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + this.resourceId).openStream();
-                 Scanner scanner = new Scanner(inputStream)) {
-                    if (scanner.hasNext()) {
-                        consumer.accept(scanner.next());
-                    }
-            } catch (IOException exception) {
-                this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
-            }
+            makeRequest("https://api.spiget.org/v2/resources/"+this.resourceId+"/versions/latest", consumer::accept);
         });
+    }
+
+    private void makeRequest(String urlStr, final Consumer<String> consumer) {
+        try {
+            URL url = new URL(urlStr);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setConnectTimeout(5000);
+            con.setReadTimeout(5000);
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+
+            con.disconnect();
+            consumer.accept(content.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

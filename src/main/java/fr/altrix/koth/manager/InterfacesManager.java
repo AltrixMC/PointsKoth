@@ -17,6 +17,8 @@ public class InterfacesManager {
     public IScoreBoard iScoreBoard;
     public ILanguages iLanguages;
 
+    public Map<Player, FastBoard> boards;
+
     public InterfacesManager() {
         setActualsLibs();
     }
@@ -48,5 +50,6 @@ public class InterfacesManager {
             Bukkit.getLogger().warning("\n----------\nPlease use a faction plugin\n----------\n");
             Bukkit.getPluginManager().disablePlugin(KothPlugin.getInstance());
         }
+        boards = new HashMap<>();
     }
 }

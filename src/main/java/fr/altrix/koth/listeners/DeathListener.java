@@ -1,15 +1,10 @@
-package fr.altrix.koth.listener;
+package fr.altrix.koth.listeners;
 
-import com.massivecraft.factions.FPlayer;
-import com.massivecraft.factions.FPlayers;
-import com.massivecraft.factions.Faction;
 import fr.altrix.koth.KothPlugin;
 import fr.altrix.koth.area.Koth;
 import org.bukkit.*;
 import org.bukkit.event.*;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.*;
-import org.bukkit.inventory.*;
 
 public class DeathListener implements Listener {
 

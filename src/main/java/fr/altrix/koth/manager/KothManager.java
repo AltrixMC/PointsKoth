@@ -5,6 +5,7 @@ import fr.altrix.koth.area.Koth;
 import fr.altrix.koth.runnable.KothRunnable;
 import fr.altrix.koth.utils.Placeholders;
 import org.bukkit.*;
+import org.bukkit.entity.*;
 
 import java.util.*;
 
@@ -17,10 +18,8 @@ public class KothManager {
 
     private void loadKoths() {
         koths = new ArrayList<>();
-        for (String s : KothPlugin.getInstance().getConfig().getConfigurationSection("koth").getKeys(false)) {
-            Koth koth = new Koth(KothPlugin.getInstance().getConfig().getConfigurationSection("koth." + s), s);
-            koths.add(koth);
-        }
+        for (String s : KothPlugin.getInstance().getConfig().getConfigurationSection("koth").getKeys(false))
+            koths.add(new Koth(KothPlugin.getInstance().getConfig().getConfigurationSection("koth." + s), s));
     }
 
     public Koth getKothById(String id) {
@@ -35,11 +34,6 @@ public class KothManager {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
             new Placeholders(KothPlugin.getInstance(), koth).register();
         koth.setStarted(true);
-        KothRunnable kothRunnable = new KothRunnable();
-        kothRunnable.startRunnable(koth);
+        new KothRunnable().startRunnable(koth);
     }
-    public void stopGame(Koth koth) {
-        koth.setStarted(false);
-    }
-
 }

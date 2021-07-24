@@ -1,4 +1,4 @@
-package fr.altrix.koth.listener;
+package fr.altrix.koth.listeners;
 
 import fr.altrix.koth.KothPlugin;
 import net.md_5.bungee.api.ChatColor;
@@ -8,8 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.awt.*;
 
 public class UpdateListener implements Listener {
 
@@ -27,6 +25,9 @@ public class UpdateListener implements Listener {
                     textComponent.setUnderlined(true);
                     textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/pointskoth-points-king-of-the-hill.93590/"));
                     player.spigot().sendMessage(textComponent);
+                    player.sendMessage("");
+                    player.sendMessage("§6PointsKoth » §7News : " + KothPlugin.getInstance().desc
+                            .replace("<br> ", "\n§6PointsKoth » §7News : "));
                 }
             }.runTaskLaterAsynchronously(KothPlugin.getInstance(), 40L);
         }

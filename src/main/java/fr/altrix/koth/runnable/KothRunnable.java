@@ -24,7 +24,7 @@ public class KothRunnable {
 
     public void startRunnable(Koth koth1) {
 
-        broadCastStart(koth1);
+        broadcastStart(koth1);
 
         new BukkitRunnable() {
             final Koth koth = koth1;
@@ -38,6 +38,7 @@ public class KothRunnable {
                     koth.setStarted(false);
 
                 if (koth.getStarted()) {
+
                     Bukkit.getOnlinePlayers().forEach(player -> {
                         showScoreBoardToPlayer(player);
 
@@ -56,7 +57,7 @@ public class KothRunnable {
         }.runTaskTimerAsynchronously(KothPlugin.getInstance(), 0, 20);
     }
 
-    private void broadCastStart(Koth koth) {
+    private void broadcastStart(Koth koth) {
         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
                 KothPlugin.getInstance().getConfig().getString("messages.koth-started")
                         .replace("%koth_x%", String.valueOf(koth.getMiddle().getBlockX()))

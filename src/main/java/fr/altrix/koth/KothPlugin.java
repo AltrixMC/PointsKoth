@@ -1,29 +1,26 @@
 package fr.altrix.koth;
 
-import fr.altrix.koth.area.*;
 import fr.altrix.koth.command.*;
-import fr.altrix.koth.factions.*;
-import fr.altrix.koth.languages.*;
-import fr.altrix.koth.listener.*;
+import fr.altrix.koth.listeners.*;
 import fr.altrix.koth.manager.*;
-import fr.altrix.koth.scoreboards.*;
 import fr.altrix.koth.utils.*;
 import fr.altrix.koth.utils.bstats.*;
 import fr.better.command.*;
 import fr.better.command.complex.*;
 import fr.better.command.complex.content.*;
 import org.bukkit.*;
-import org.bukkit.plugin.*;
 import org.bukkit.plugin.java.*;
+import org.json.simple.*;
+import org.json.simple.parser.*;
 
 import java.util.*;
-import java.util.logging.*;
 
 public final class KothPlugin extends JavaPlugin {
 
     private static KothPlugin instance;
 
-    public boolean upToDate;
+    public boolean upToDate = false;
+    public String desc;
 
     private KothManager kothManager;
     private InterfacesManager interfacesManager;
@@ -53,15 +50,27 @@ public final class KothPlugin extends JavaPlugin {
     }
     private void update() {
         Metrics metrics = new Metrics(this, 11805);
-        new UpdateChecker(this, 93590).getVersion(version -> {
-            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                Bukkit.getLogger().info("There is not a new update available.");
-                upToDate = true;
-            } else {
-                Bukkit.getLogger().warning("There is a new update available.");
-                upToDate = false;
-            }
+        UpdateChecker updateChecker = new UpdateChecker(this, 93590);
+        updateChecker.getDesc(desc -> {
+            try {
+                JSONObject jsonObject = (JSONObject) new JSONParser().parse(desc);
+
+                this.desc = base64ToString((String) jsonObject.get("description"));
+            } catch (ParseException e) { e.printStackTrace(); }
         });
+        updateChecker.getVersion(version -> {
+            try {
+                JSONObject jsonObject = (JSONObject) new JSONParser().parse(version);
+
+                if (jsonObject.get("name").equals(getDescription().getVersion()))
+                    upToDate = true;
+            } catch (ParseException e) { e.printStackTrace(); }
+        });
+    }
+
+    private String base64ToString(String base64) {
+        byte[] decodedBytes = Base64.getDecoder().decode(base64);
+        return new String(decodedBytes);
     }
 
     public static KothPlugin getInstance() {

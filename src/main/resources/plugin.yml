@@ -1,5 +1,5 @@
 name: PointsKoth
-version: @version@
+version: 1.6
 main: fr.altrix.koth.KothPlugin
 authors: [ AltrixMC ]
 commands:
