@@ -8,7 +8,6 @@ import fr.altrix.koth.utils.bstats.*;
 import fr.better.command.*;
 import fr.better.command.complex.*;
 import fr.better.command.complex.content.*;
-import org.bukkit.*;
 import org.bukkit.plugin.java.*;
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -21,6 +20,7 @@ public final class KothPlugin extends JavaPlugin {
 
     public boolean upToDate = false;
     public String desc;
+    public long lastUpdateTime;
 
     private KothManager kothManager;
     private InterfacesManager interfacesManager;
@@ -31,7 +31,7 @@ public final class KothPlugin extends JavaPlugin {
         saveDefaultConfig();
 
         getServer().getPluginManager().registerEvents(new DeathListener(), this);
-        getServer().getPluginManager().registerEvents(new UpdateListener(), this);
+        getServer().getPluginManager().registerEvents(new JoinListener(), this);
 
         addCommands();
         update();
@@ -56,6 +56,7 @@ public final class KothPlugin extends JavaPlugin {
                 JSONObject jsonObject = (JSONObject) new JSONParser().parse(desc);
 
                 this.desc = base64ToString((String) jsonObject.get("description"));
+                this.lastUpdateTime = (long) jsonObject.get("date");
             } catch (ParseException e) { e.printStackTrace(); }
         });
         updateChecker.getVersion(version -> {
