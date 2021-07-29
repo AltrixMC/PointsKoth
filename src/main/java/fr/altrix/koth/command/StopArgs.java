@@ -9,25 +9,29 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class StopArgs extends Argument {
+
+    KothPlugin main;
+    public StopArgs(KothPlugin main) {this.main = main;}
+
     @Override
     public String utility() {
-        return KothPlugin.getInstance().getInterfacesManager().iLanguages.stopUtility();
+        return main.getInterfacesManager().iLanguages.stopUtility();
     }
 
     @Override
     public String execute(Player player, List<String> parameters) {
-        KothManager kothManager = KothPlugin.getInstance().getKothManager();
+        KothManager kothManager = main.getKothManager();
         if (kothManager.getKothById(parameters.get(0)) == null)
-            return KothPlugin.getInstance().getInterfacesManager().iLanguages.kothNotFound()
+            return main.getInterfacesManager().iLanguages.kothNotFound()
                     .replace("{koth}", parameters.get(0));
 
         kothManager.actualKoth.setStarted(false);
-        return KothPlugin.getInstance().getInterfacesManager().iLanguages.kothStopped()
+        return main.getInterfacesManager().iLanguages.kothStopped()
                 .replace("{koth}", parameters.get(0));
     }
 
     @Override
     public String parameter() {
-        return KothPlugin.getInstance().getInterfacesManager().iLanguages.stopParameters();
+        return main.getInterfacesManager().iLanguages.stopParameters();
     }
 }

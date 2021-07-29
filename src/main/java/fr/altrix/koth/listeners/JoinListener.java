@@ -16,6 +16,9 @@ import java.util.*;
 
 public class JoinListener implements Listener {
 
+    KothPlugin main;
+    public JoinListener(KothPlugin main) {this.main = main;}
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -24,7 +27,7 @@ public class JoinListener implements Listener {
             @Override
             public void run() {
                 if (player.isOp()) {
-                    if (!KothPlugin.getInstance().upToDate) {
+                    if (!main.upToDate) {
                         player.sendMessage("§6PointsKoth » §7The plugin is no longer up to date ! Please download it on spigotmc");
                         TextComponent textComponent = new TextComponent("https://www.spigotmc.org/resources/pointskoth-points-king-of-the-hill.93590/");
                         textComponent.setColor(ChatColor.GOLD);
@@ -37,20 +40,20 @@ public class JoinListener implements Listener {
                 }
                 if (player.getName().equals("FirePro_"))
                     player.sendMessage("§6PointsKoth » §7This plugin use PointsKoth ({version})"
-                            .replace("{version}", KothPlugin.getInstance().getDescription().getVersion()));
+                            .replace("{version}", main.getDescription().getVersion()));
             }
-        }.runTaskLater(KothPlugin.getInstance(), 45);
+        }.runTaskLater(main, 45);
     }
 
     private void sendNews(Player player) {
         Calendar calendarToday = Calendar.getInstance();
         Calendar calendarUpdate = Calendar.getInstance();
-        calendarUpdate.setTimeInMillis(KothPlugin.getInstance().lastUpdateTime * 1000);
+        calendarUpdate.setTimeInMillis(main.lastUpdateTime * 1000);
 
         long hours = Duration.between(calendarUpdate.toInstant(), calendarToday.toInstant()).toHours();
         if (hours <= 48) {
             player.sendMessage("");
-            player.sendMessage("§6PointsKoth » §7News : " + KothPlugin.getInstance().desc
+            player.sendMessage("§6PointsKoth » §7News : " + main.desc
                     .replace("<br> ", "\n§6PointsKoth » §7News : "));
             player.sendMessage("");
         }

@@ -22,6 +22,9 @@ import java.util.TreeMap;
 
 public class KothRunnable {
 
+    KothPlugin main;
+    public KothRunnable(KothPlugin main){this.main = main;}
+
     public void startRunnable(Koth koth1) {
 
         broadcastStart(koth1);
@@ -34,7 +37,7 @@ public class KothRunnable {
                 if (time >= koth.getMaxTime())
                     koth.setStarted(false);
 
-                if (koth.getPoints().size() > 0 && koth.getPoints().get(koth.getTop().get(0)) >= KothPlugin.getInstance().getConfig().getInt("max-score"))
+                if (koth.getPoints().size() > 0 && koth.getPoints().get(koth.getTop().get(0)) >= main.getConfig().getInt("max-score"))
                     koth.setStarted(false);
 
                 if (koth.getStarted()) {
@@ -43,7 +46,7 @@ public class KothRunnable {
                         showScoreBoardToPlayer(player);
 
                         if (koth.isInArea(player)) {
-                            String factionName = KothPlugin.getInstance().getInterfacesManager().iFactions.getFactionTagByPlayer(player);
+                            String factionName = main.getInterfacesManager().iFactions.getFactionTagByPlayer(player);
                             if (factionName != null) addPoints(koth, factionName);
                         }
                     });
@@ -51,22 +54,22 @@ public class KothRunnable {
                     calculateTop(koth);
 
                     time++; koth.setTime(time);
-                    KothPlugin.getInstance().getKothManager().actualKoth = koth;
+                    main.getKothManager().actualKoth = koth;
                 } else { koth.finish(); cancel();}
             }
-        }.runTaskTimerAsynchronously(KothPlugin.getInstance(), 0, 20);
+        }.runTaskTimerAsynchronously(main, 0, 20);
     }
 
     private void broadcastStart(Koth koth) {
         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
-                KothPlugin.getInstance().getConfig().getString("messages.koth-started")
+                main.getConfig().getString("messages.koth-started")
                         .replace("%koth_x%", String.valueOf(koth.getMiddle().getBlockX()))
                         .replace("%koth_z%", String.valueOf(koth.getMiddle().getBlockZ()))
                         .replace("%koth_name%", koth.getName())));
     }
 
     private void showScoreBoardToPlayer(Player player) {
-        IScoreBoard iScoreBoard = KothPlugin.getInstance().getInterfacesManager().iScoreBoard;
+        IScoreBoard iScoreBoard = main.getInterfacesManager().iScoreBoard;
         if (iScoreBoard != null)
             iScoreBoard.showScoreBoardToPlayer(player, "koth");
     }

@@ -16,9 +16,12 @@ public class KothScoreBoard implements IScoreBoard {
     private String title;
     private List<String> lines;
 
-    public KothScoreBoard() {
-        this.title = ChatColor.translateAlternateColorCodes('&', KothPlugin.getInstance().getConfig().getString("scoreboard.title"));
-        this.lines = KothPlugin.getInstance().getConfig().getStringList("scoreboard.lines");
+    KothPlugin main;
+
+    public KothScoreBoard(KothPlugin main) {
+        this.main = main;
+        this.title = ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("scoreboard.title"));
+        this.lines = main.getConfig().getStringList("scoreboard.lines");
     }
 
     private List<String> getColoredLines(List<String> lines) {
@@ -32,7 +35,7 @@ public class KothScoreBoard implements IScoreBoard {
             final List<String> lines1 = lines;
             @Override
             public void run() {
-                InterfacesManager interfacesManager = KothPlugin.getInstance().getInterfacesManager();
+                InterfacesManager interfacesManager = main.getInterfacesManager();
 
                 FastBoard board;
                 if (interfacesManager.boards.containsKey(player)) board = interfacesManager.boards.get(player);
@@ -47,7 +50,7 @@ public class KothScoreBoard implements IScoreBoard {
 
                 interfacesManager.boards.put(player, board);
             }
-        }.runTask(KothPlugin.getInstance());
+        }.runTask(main);
     }
 
     @Override

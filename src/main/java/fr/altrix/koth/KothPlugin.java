@@ -30,23 +30,23 @@ public final class KothPlugin extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
 
-        getServer().getPluginManager().registerEvents(new DeathListener(), this);
-        getServer().getPluginManager().registerEvents(new JoinListener(), this);
+        getServer().getPluginManager().registerEvents(new DeathListener(this), this);
+        getServer().getPluginManager().registerEvents(new JoinListener(this), this);
 
         addCommands();
         update();
 
-        kothManager = new KothManager();
-        interfacesManager = new InterfacesManager();
+        kothManager = new KothManager(this);
+        interfacesManager = new InterfacesManager(this);
     }
 
     private void addCommands() {
         CommandsBuilder builder = CommandsBuilder.init(this);
         Command command = builder.createComplexCommand("pkoth");
-        command.add("start", new StartArgs(), ArgumentType.DONT_NEED_PLAYER);
-        command.add("stop", new StopArgs(), ArgumentType.DONT_NEED_PLAYER);
-        command.add("status", new StatusArgs(), ArgumentType.DONT_NEED_PLAYER);
-        command.add("reload", new ReloadArgs(), ArgumentType.DONT_NEED_PLAYER);
+        command.add("start", new StartArgs(this), ArgumentType.DONT_NEED_PLAYER);
+        command.add("stop", new StopArgs(this), ArgumentType.DONT_NEED_PLAYER);
+        command.add("status", new StatusArgs(this), ArgumentType.DONT_NEED_PLAYER);
+        command.add("reload", new ReloadArgs(this), ArgumentType.DONT_NEED_PLAYER);
     }
     private void update() {
         Metrics metrics = new Metrics(this, 11805);
@@ -80,8 +80,8 @@ public final class KothPlugin extends JavaPlugin {
 
     public void reloadPlugin() {
         reloadConfig();
-        kothManager = new KothManager();
-        interfacesManager = new InterfacesManager();
+        kothManager = new KothManager(this);
+        interfacesManager = new InterfacesManager(this);
     }
 
     public KothManager getKothManager() {

@@ -19,7 +19,9 @@ public class InterfacesManager {
 
     public Map<Player, FastBoard> boards;
 
-    public InterfacesManager() {
+    KothPlugin main;
+    public InterfacesManager(KothPlugin main) {
+        this.main = main;
         setActualsLibs();
     }
 
@@ -29,7 +31,7 @@ public class InterfacesManager {
                 iScoreBoard = new FeatherBoard();
             else if (plugin.getName().equalsIgnoreCase("QuickBoard"))
                 iScoreBoard = new QuickBoard();
-            else iScoreBoard = new KothScoreBoard();
+            else iScoreBoard = new KothScoreBoard(main);
             if (plugin.getName().equalsIgnoreCase("Factions")) {
                 String authors = plugin.getDescription().getAuthors().toString();
                 if (authors.contains("Driftay"))
@@ -40,15 +42,15 @@ public class InterfacesManager {
                     iFactions = new MassiveFaction();
             }
         }
-        if (KothPlugin.getInstance().getConfig().getString("language").equalsIgnoreCase("fr"))
+        if (main.getConfig().getString("language").equalsIgnoreCase("fr"))
             iLanguages = new French();
-        else if (KothPlugin.getInstance().getConfig().getString("language").equalsIgnoreCase("en"))
+        else if (main.getConfig().getString("language").equalsIgnoreCase("en"))
             iLanguages = new English();
         else iLanguages = new English();
 
         if (iFactions == null) {
             Bukkit.getLogger().warning("\n----------\nPlease use a faction plugin\n----------\n");
-            Bukkit.getPluginManager().disablePlugin(KothPlugin.getInstance());
+            Bukkit.getPluginManager().disablePlugin(main);
         }
         boards = new HashMap<>();
     }

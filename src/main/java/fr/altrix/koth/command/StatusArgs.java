@@ -8,18 +8,22 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class StatusArgs extends Argument {
+
+    KothPlugin main;
+    public StatusArgs(KothPlugin main) {this.main = main;}
+
     @Override
     public String utility() {
-        return KothPlugin.getInstance().getInterfacesManager().iLanguages.statusUtility();
+        return main.getInterfacesManager().iLanguages.statusUtility();
     }
 
     @Override
     public String execute(Player player, List<String> parameters) {
-        Koth koth = KothPlugin.getInstance().getKothManager().actualKoth;
+        Koth koth = main.getKothManager().actualKoth;
         if (koth == null)
-            return KothPlugin.getInstance().getInterfacesManager().iLanguages.noKothIsStarted();
+            return main.getInterfacesManager().iLanguages.noKothIsStarted();
 
-        return KothPlugin.getInstance().getInterfacesManager().iLanguages.kothIsStarted()
+        return main.getInterfacesManager().iLanguages.kothIsStarted()
                 .replace("{koth}", koth.getName());
     }
 

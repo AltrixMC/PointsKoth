@@ -8,20 +8,25 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathListener implements Listener {
 
+    KothPlugin main;
+    public DeathListener(KothPlugin main) {this.main = main;}
+
     @EventHandler(priority = EventPriority.HIGH)
     public void onDead(PlayerDeathEvent event) {
-        Koth koth = KothPlugin.getInstance().getKothManager().actualKoth;
-        String factionName = KothPlugin.getInstance().getInterfacesManager().iFactions.getFactionTagByPlayer(event.getEntity());
-        if (factionName != null && koth.getPoints().containsKey(factionName)) {
-            int totalPoints = (int) (koth.getPoints().get(factionName) * KothPlugin.getInstance().getConfig().getDouble("death-multiplier"));
-            int point = koth.getPoints().get(factionName);
-            koth.getPoints().put(factionName, totalPoints);
-            point = point - koth.getPoints().get(factionName);
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
-                    KothPlugin.getInstance().getConfig().getString("messages.death-message")
-                            .replace("%points%", String.valueOf(point))
-                            .replace("%player%", event.getEntity().getName())
-                            .replace("%faction%", factionName)));
+        if (main.getKothManager().actualKoth != null) {
+            Koth koth = main.getKothManager().actualKoth;
+            String factionName = main.getInterfacesManager().iFactions.getFactionTagByPlayer(event.getEntity());
+            if (factionName != null && koth.getPoints().containsKey(factionName)) {
+                int totalPoints = (int) (koth.getPoints().get(factionName) * main.getConfig().getDouble("death-multiplier"));
+                int point = koth.getPoints().get(factionName);
+                koth.getPoints().put(factionName, totalPoints);
+                point = point - koth.getPoints().get(factionName);
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
+                        main.getConfig().getString("messages.death-message")
+                                .replace("%points%", String.valueOf(point))
+                                .replace("%player%", event.getEntity().getName())
+                                .replace("%faction%", factionName)));
+            }
         }
     }
 

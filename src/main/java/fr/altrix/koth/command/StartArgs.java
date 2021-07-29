@@ -9,30 +9,34 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class StartArgs extends Argument {
+
+    KothPlugin main;
+    public StartArgs(KothPlugin main) {this.main = main;}
+
     @Override
     public String utility() {
-        return KothPlugin.getInstance().getInterfacesManager().iLanguages.startUtility();
+        return main.getInterfacesManager().iLanguages.startUtility();
     }
 
     @Override
     public String execute(Player player, List<String> parameters) {
-        KothManager kothManager = new KothManager();
+        KothManager kothManager = new KothManager(main);
         if (kothManager.getKothById(parameters.get(0)) == null)
-            return KothPlugin.getInstance().getInterfacesManager().iLanguages.kothNotFound()
+            return main.getInterfacesManager().iLanguages.kothNotFound()
                     .replace("{koth}", parameters.get(0));
 
-        Koth koth = KothPlugin.getInstance().getKothManager().actualKoth;
+        Koth koth = main.getKothManager().actualKoth;
         if (koth != null)
-            return KothPlugin.getInstance().getInterfacesManager().iLanguages.kothAlreadyStarted()
+            return main.getInterfacesManager().iLanguages.kothAlreadyStarted()
                     .replace("{koth}", koth.getName());
 
         kothManager.startGame(kothManager.getKothById(parameters.get(0)));
-        return KothPlugin.getInstance().getInterfacesManager().iLanguages.kothStarted()
+        return main.getInterfacesManager().iLanguages.kothStarted()
                 .replace("{koth}", parameters.get(0));
     }
 
     @Override
     public String parameter() {
-        return KothPlugin.getInstance().getInterfacesManager().iLanguages.startParameters();
+        return main.getInterfacesManager().iLanguages.startParameters();
     }
 }
