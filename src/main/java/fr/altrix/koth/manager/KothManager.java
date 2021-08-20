@@ -1,20 +1,19 @@
 package fr.altrix.koth.manager;
 
 import fr.altrix.koth.KothPlugin;
-import fr.altrix.koth.area.Koth;
+import fr.altrix.koth.koth.Koth;
 import fr.altrix.koth.runnable.KothRunnable;
 import fr.altrix.koth.utils.Placeholders;
 import org.bukkit.*;
-import org.bukkit.entity.*;
 
 import java.util.*;
 
 public class KothManager {
 
-    public List<Koth> koths;
-    public Koth actualKoth;
+    private List<Koth> koths;
+    private Koth actualKoth;
 
-    KothPlugin main;
+    private KothPlugin main;
     public KothManager(KothPlugin main) {this.main = main; loadKoths(); }
 
     private void loadKoths() {
@@ -33,8 +32,16 @@ public class KothManager {
 
     public void startGame(Koth koth) {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
-            new Placeholders(main, koth).register();
+            new Placeholders(main).register();
         koth.setStarted(true);
         new KothRunnable(main).startRunnable(koth);
+    }
+
+    public Koth getActualKoth() {
+        return actualKoth;
+    }
+
+    public void setActualKoth(Koth actualKoth) {
+        this.actualKoth = actualKoth;
     }
 }

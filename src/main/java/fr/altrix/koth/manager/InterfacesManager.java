@@ -13,13 +13,13 @@ import java.util.*;
 
 public class InterfacesManager {
 
-    public IFactions iFactions;
-    public IScoreBoard iScoreBoard;
-    public ILanguages iLanguages;
+    private IFactions iFactions;
+    private IScoreBoard iScoreBoard;
+    private ILanguages iLanguages;
 
-    public Map<Player, FastBoard> boards;
+    private Map<Player, FastBoard> boards;
 
-    KothPlugin main;
+    private KothPlugin main;
     public InterfacesManager(KothPlugin main) {
         this.main = main;
         setActualsLibs();
@@ -53,5 +53,33 @@ public class InterfacesManager {
             Bukkit.getPluginManager().disablePlugin(main);
         }
         boards = new HashMap<>();
+    }
+
+    public IFactions getiFactions() {
+        return iFactions;
+    }
+
+    public void setiFactions(IFactions iFactions) {
+        this.iFactions = iFactions;
+    }
+
+    public IScoreBoard getiScoreBoard() {
+        return iScoreBoard;
+    }
+
+    public void setiScoreBoard(IScoreBoard iScoreBoard) {
+        this.iScoreBoard = iScoreBoard;
+    }
+
+    public ILanguages getiLanguages() {
+        return iLanguages;
+    }
+
+    public void setiLanguages(ILanguages iLanguages) {
+        this.iLanguages = iLanguages;
+    }
+
+    public Map<Player, FastBoard> getBoards() {
+        return boards;
     }
 }

@@ -8,21 +8,21 @@ import java.util.List;
 
 public class ReloadArgs extends Argument {
 
-    KothPlugin main;
+    private KothPlugin main;
     public ReloadArgs(KothPlugin main) {this.main = main;}
 
     @Override
     public String utility() {
-        return main.getInterfacesManager().iLanguages.reloadUtility();
+        return main.getInterfacesManager().getiLanguages().reloadUtility();
     }
 
     @Override
     public String execute(Player player, List<String> parameters) {
-        if (main.getKothManager().actualKoth == null) {
+        if (main.getKothManager().getActualKoth() == null) {
             main.reloadPlugin();
-            return main.getInterfacesManager().iLanguages.reloadedSuccessfully();
+            return main.getInterfacesManager().getiLanguages().reloadedSuccessfully();
         } else {
-            return main.getInterfacesManager().iLanguages.kothIsStartedPleaseStop();
+            return main.getInterfacesManager().getiLanguages().kothIsStartedPleaseStop();
         }
     }
 

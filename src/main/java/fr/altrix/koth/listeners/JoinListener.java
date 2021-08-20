@@ -16,44 +16,39 @@ import java.util.*;
 
 public class JoinListener implements Listener {
 
-    KothPlugin main;
+    private KothPlugin main;
     public JoinListener(KothPlugin main) {this.main = main;}
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                if (player.isOp()) {
-                    if (!main.upToDate) {
-                        player.sendMessage("§6PointsKoth » §7The plugin is no longer up to date ! Please download it on spigotmc");
-                        TextComponent textComponent = new TextComponent("https://www.spigotmc.org/resources/pointskoth-points-king-of-the-hill.93590/");
-                        textComponent.setColor(ChatColor.GOLD);
-                        textComponent.setBold(true);
-                        textComponent.setUnderlined(true);
-                        textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/pointskoth-points-king-of-the-hill.93590/"));
-                        player.spigot().sendMessage(textComponent);
-                    }
-                    sendNews(player);
+        Bukkit.getScheduler().runTaskLater(main, () -> {
+            if (player.isOp()) {
+                if (!main.isUpToDate()) {
+                    player.sendMessage("§6PointsKoth » §7The plugin is no longer up to date ! Please download it on spigotmc");
+                    TextComponent textComponent = new TextComponent("https://www.spigotmc.org/resources/pointskoth-points-king-of-the-hill.93590/");
+                    textComponent.setColor(ChatColor.GOLD);
+                    textComponent.setBold(true);
+                    textComponent.setUnderlined(true);
+                    textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/pointskoth-points-king-of-the-hill.93590/"));
+                    player.spigot().sendMessage(textComponent);
                 }
-                if (player.getName().equals("FirePro_"))
-                    player.sendMessage("§6PointsKoth » §7This plugin use PointsKoth ({version})"
-                            .replace("{version}", main.getDescription().getVersion()));
+                sendNews(player);
             }
-        }.runTaskLater(main, 45);
+            if (player.getName().equals("FirePro_"))
+                player.sendMessage("§6PointsKoth » §7This plugin use PointsKoth ("+main.getDescription().getVersion()+")");
+        },45);
     }
 
     private void sendNews(Player player) {
         Calendar calendarToday = Calendar.getInstance();
         Calendar calendarUpdate = Calendar.getInstance();
-        calendarUpdate.setTimeInMillis(main.lastUpdateTime * 1000);
+        calendarUpdate.setTimeInMillis(main.getLastUpdateTime() * 1000);
 
         long hours = Duration.between(calendarUpdate.toInstant(), calendarToday.toInstant()).toHours();
         if (hours <= 48) {
             player.sendMessage("");
-            player.sendMessage("§6PointsKoth » §7News : " + main.desc
+            player.sendMessage("§6PointsKoth » §7News : " + main.getDesc()
                     .replace("<br> ", "\n§6PointsKoth » §7News : "));
             player.sendMessage("");
         }

@@ -1,21 +1,21 @@
 package fr.altrix.koth.listeners;
 
 import fr.altrix.koth.KothPlugin;
-import fr.altrix.koth.area.Koth;
+import fr.altrix.koth.koth.Koth;
 import org.bukkit.*;
 import org.bukkit.event.*;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathListener implements Listener {
 
-    KothPlugin main;
+    private KothPlugin main;
     public DeathListener(KothPlugin main) {this.main = main;}
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onDead(PlayerDeathEvent event) {
-        if (main.getKothManager().actualKoth != null) {
-            Koth koth = main.getKothManager().actualKoth;
-            String factionName = main.getInterfacesManager().iFactions.getFactionTagByPlayer(event.getEntity());
+        if (main.getKothManager().getActualKoth() != null) {
+            Koth koth = main.getKothManager().getActualKoth();
+            String factionName = main.getInterfacesManager().getiFactions().getFactionTagByPlayer(event.getEntity());
             if (factionName != null && koth.getPoints().containsKey(factionName)) {
                 int totalPoints = (int) (koth.getPoints().get(factionName) * main.getConfig().getDouble("death-multiplier"));
                 int point = koth.getPoints().get(factionName);

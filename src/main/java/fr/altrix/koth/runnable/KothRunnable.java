@@ -1,13 +1,7 @@
 package fr.altrix.koth.runnable;
 
-import be.maximvdw.featherboard.api.FeatherBoardAPI;
-import com.massivecraft.factions.FPlayer;
-import com.massivecraft.factions.FPlayers;
-import com.massivecraft.factions.Faction;
-import com.massivecraft.factions.Factions;
 import fr.altrix.koth.*;
-import fr.altrix.koth.area.Koth;
-import fr.altrix.koth.factions.*;
+import fr.altrix.koth.koth.Koth;
 import fr.altrix.koth.scoreboards.*;
 import fr.altrix.koth.utils.ValueComparator;
 import org.bukkit.Bukkit;
@@ -22,7 +16,7 @@ import java.util.TreeMap;
 
 public class KothRunnable {
 
-    KothPlugin main;
+    private KothPlugin main;
     public KothRunnable(KothPlugin main){this.main = main;}
 
     public void startRunnable(Koth koth1) {
@@ -46,7 +40,7 @@ public class KothRunnable {
                         showScoreBoardToPlayer(player);
 
                         if (koth.isInArea(player)) {
-                            String factionName = main.getInterfacesManager().iFactions.getFactionTagByPlayer(player);
+                            String factionName = main.getInterfacesManager().getiFactions().getFactionTagByPlayer(player);
                             if (factionName != null) addPoints(koth, factionName);
                         }
                     });
@@ -54,7 +48,7 @@ public class KothRunnable {
                     calculateTop(koth);
 
                     time++; koth.setTime(time);
-                    main.getKothManager().actualKoth = koth;
+                    main.getKothManager().setActualKoth(koth);
                 } else { koth.finish(); cancel();}
             }
         }.runTaskTimerAsynchronously(main, 0, 20);
@@ -69,9 +63,9 @@ public class KothRunnable {
     }
 
     private void showScoreBoardToPlayer(Player player) {
-        IScoreBoard iScoreBoard = main.getInterfacesManager().iScoreBoard;
+        IScoreBoard iScoreBoard = main.getInterfacesManager().getiScoreBoard();
         if (iScoreBoard != null)
-            iScoreBoard.showScoreBoardToPlayer(player, "koth");
+            iScoreBoard.showScoreBoardToPlayer(player, "koth",main);
     }
 
     private void addPoints(Koth koth, String factionName) {
