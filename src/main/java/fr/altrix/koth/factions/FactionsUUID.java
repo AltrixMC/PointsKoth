@@ -6,8 +6,8 @@ import org.bukkit.entity.*;
 
 public class FactionsUUID implements IFactions {
     @Override
-    public String getFactionTagByPlayer(Player playerarg) {
-        FPlayer fPlayer = FPlayers.getInstance().getByPlayer(playerarg);
+    public String getFactionTagByPlayer(Player playerArg) {
+        FPlayer fPlayer = FPlayers.getInstance().getByPlayer(playerArg);
         if (!fPlayer.getFaction().isWilderness())
             return fPlayer.getFaction().getTag();
         return null;

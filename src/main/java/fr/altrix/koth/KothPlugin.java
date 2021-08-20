@@ -16,18 +16,15 @@ import java.util.*;
 
 public final class KothPlugin extends JavaPlugin {
 
-    private static KothPlugin instance;
-
-    public boolean upToDate = false;
-    public String desc;
-    public long lastUpdateTime;
+    private boolean upToDate = false;
+    private String desc;
+    private long lastUpdateTime;
 
     private KothManager kothManager;
     private InterfacesManager interfacesManager;
 
     @Override
     public void onEnable() {
-        instance = this;
         saveDefaultConfig();
 
         getServer().getPluginManager().registerEvents(new DeathListener(this), this);
@@ -74,10 +71,6 @@ public final class KothPlugin extends JavaPlugin {
         return new String(decodedBytes);
     }
 
-    public static KothPlugin getInstance() {
-        return instance;
-    }
-
     public void reloadPlugin() {
         reloadConfig();
         kothManager = new KothManager(this);
@@ -90,5 +83,17 @@ public final class KothPlugin extends JavaPlugin {
 
     public InterfacesManager getInterfacesManager() {
         return interfacesManager;
+    }
+
+    public boolean isUpToDate() {
+        return upToDate;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public long getLastUpdateTime() {
+        return lastUpdateTime;
     }
 }

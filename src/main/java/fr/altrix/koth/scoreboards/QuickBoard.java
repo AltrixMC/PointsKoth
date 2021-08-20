@@ -6,24 +6,27 @@ import org.bukkit.entity.*;
 import org.bukkit.scheduler.*;
 
 public class QuickBoard implements IScoreBoard {
+
+
+
     @Override
-    public void showScoreBoardToPlayer(Player player, String scoreBoardName) {
+    public void showScoreBoardToPlayer(Player player, String scoreBoardName, KothPlugin main) {
         new BukkitRunnable() {
             @Override
             public void run() {
                 QuickBoardAPI.createBoard(player, "scoreboard." + scoreBoardName);
             }
-        }.runTask(KothPlugin.getInstance());
+        }.runTask(main);
     }
 
     @Override
-    public void showDefaultScoreBoard(Player player) {
+    public void showDefaultScoreBoard(Player player, KothPlugin main) {
         new BukkitRunnable() {
             @Override
             public void run() {
                 QuickBoardAPI.createBoard(player, "scoreboard.default");
             }
-        }.runTask(KothPlugin.getInstance());
+        }.runTask(main);
     }
 
 

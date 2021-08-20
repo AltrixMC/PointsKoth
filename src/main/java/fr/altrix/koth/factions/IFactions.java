@@ -4,6 +4,6 @@ import org.bukkit.entity.*;
 
 public interface IFactions {
 
-    String getFactionTagByPlayer(Player playerarg);
+    String getFactionTagByPlayer(Player playerArg);
 
 }

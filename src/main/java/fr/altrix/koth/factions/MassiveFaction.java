@@ -5,7 +5,7 @@ import org.bukkit.entity.*;
 
 public class MassiveFaction implements IFactions {
     @Override
-    public String getFactionTagByPlayer(Player playerarg) {
-        return MPlayer.get(playerarg).getFaction().getName();
+    public String getFactionTagByPlayer(Player playerArg) {
+        return MPlayer.get(playerArg).getFaction().getName();
     }
 }
