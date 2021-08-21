@@ -59,24 +59,12 @@ public class InterfacesManager {
         return iFactions;
     }
 
-    public void setiFactions(IFactions iFactions) {
-        this.iFactions = iFactions;
-    }
-
     public IScoreBoard getiScoreBoard() {
         return iScoreBoard;
     }
 
-    public void setiScoreBoard(IScoreBoard iScoreBoard) {
-        this.iScoreBoard = iScoreBoard;
-    }
-
     public ILanguages getiLanguages() {
         return iLanguages;
-    }
-
-    public void setiLanguages(ILanguages iLanguages) {
-        this.iLanguages = iLanguages;
     }
 
     public Map<Player, FastBoard> getBoards() {

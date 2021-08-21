@@ -33,11 +33,6 @@ public class Koth {
         this.started = false;
 
         World world = Bukkit.getWorld(section.getString("world"));
-        if (world == null) {
-            Bukkit.getLogger().warning("[PointsKoth] Bad configuration");
-            Bukkit.getLogger().warning("[PointsKoth] World is not recognized : " + section.getString("world"));
-            Bukkit.getPluginManager().disablePlugin(main);
-        }
         Location location1 = new Location(world, section.getInt("first.X"), section.getInt("first.Y"), section.getInt("first.Z"));
         Location location2 = new Location(world, section.getInt("second.X"), section.getInt("second.Y"), section.getInt("second.Z"));
 
