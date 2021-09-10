@@ -12,16 +12,16 @@ import java.util.*;
 public class Koth {
 
     private String id;
-    private String name;
-    private int maxTime;
+    private final String name;
+    private final int maxTime;
     private int time;
-    private Location min, max;
+    private final Location min, max;
     private Location middle;
     private boolean started;
     private Map<String, Integer> points;
     private List<String> top;
 
-    private KothPlugin main;
+    private final KothPlugin main;
 
     public Koth(ConfigurationSection section, String id, KothPlugin main) {
         this.main = main;
